@@ -1,0 +1,122 @@
+# Alginate MS–ML — NMR-calibrated AOS composition modeling
+
+Reproducible **research-development code** for learning composition-associated fragmentation patterns in alginate oligosaccharides (AOS) without requiring sequence-pure AOS standards.
+
+**Scope:** DP3–DP7 calibration mixtures at HCD NCE 18%, 22%, and 26%, using NMR-calibrated mixture labels, two-component nonnegative matrix factorization (K2) and eight diagnostic fragment-ion ratios (K8), standardized Ridge regression, and grouped leave-one-composition-out (LOCO) validation. External inference is available for three unfractionated AOS populations at DP3/DP4 only.
+
+> **Important distinction:** External GG-, MG-, and MM-rich materials have bulk (DP-unresolved) NMR M fractions of 12%, 51%, and 82%. These are contextual measurements, **not known DP3- or DP4-specific targets**. Agreement with bulk NMR does not establish DP-specific external predictive accuracy. Some development experiments explored preprocessing after viewing external agreement; they must not be described as blind validation.
+
+## Quick start
+
+Requires Python 3.10+ (3.11 recommended) and the original mzML files for real-data runs. Synthetic tests require no real mzML.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate              # Windows: .venv\Scripts\activate
+python -m pip install -r requirements.txt
+
+# Run the V7.0 pipeline selftest (no mzML required):
+python experiments/alginate_V70_EVIDENCE_EXISTING_DATA_IDE.py --run-mode selftest
+
+# Synthetic integration tests — results are NOT scientific measurements:
+python tests/test_v70_synthetic.py
+
+# Full existing-data experiment (specify location of private mzML data):
+python experiments/alginate_V70_EVIDENCE_EXISTING_DATA_IDE.py \
+  --run-mode overnight --threads 2 \
+  --data-dir /path/to/alginate_experiment \
+  --out-dir ./outputs/v70
+```
+
+A full V7.0 run tests authentic NMR-calibrated labels against 199 composition-*group* label permutations, uses a fixed common preprocessing reference, performs K8-only and joint K2+K8 comparisons, and runs frozen external inference. This is a **within-calibration statistical check**, not independent DP-specific external ground truth.
+
+## Repository structure
+
+| Location | Content |
+| --- | --- |
+| `alginate_ratio_transfer_IDE.py`, `v62_core.py`, `DP_spectrum_process_Class.py` | Original shared fragment-processing and MS model dependencies |
+| `alginate_V66_ALL_NCE_OVERNIGHT_IDE.py` | Shared V6.6 pipeline and experiment code used by later versions |
+| `experiments/alginate_V67_*.py` | Higher DP5–DP7 preprocessing sensitivity and nested selection |
+| `experiments/alginate_V68_*.py` | DP3/NCE26 calibration/external transfer ablations |
+| `experiments/alginate_V69_*.py` | DP3 three-NCE ratio-distribution and model-domain diagnostics |
+| `experiments/alginate_V70_*.py` | Current primary calibration-label permutation and external QC experiments |
+| `tests/` | Synthetic acceptance tests (not scientific validation) |
+| `results/reported/` | Selected CSV exports from earlier real-data runs, identified by script version |
+| `docs/legacy_readmes/` | Original experiment-specific instructions and changelogs |
+| `figures/figure3c/` | DP3/NCE26 NMF-weight and error-bar figure generator (experimental plot requires mzML) |
+| `figures/figure3e_f/` | Figure 3e LOCO schematic and Figure 3f V7.0 heatmap generators, local source CSV, SVG/PNG |
+| `figures/editable/` | Editable PowerPoint source artwork for Figures 3e and 3f |
+| `figures/figure4/` | Prior Figure 4 SVG/PNG and provenance CSVs, with explanatory limitations |
+| `results/reported/v70/` | Supplied V7.0 real-data analysis CSVs (permutations, validation, external QC) |
+| `docs/` | Data organization, interpretation, limitations, reproducibility checklist |
+
+V6.6 is imported by downstream scripts and is intentionally located at the repository root. Each experiment script additionally contains a small import-path adapter needed because the repo now groups experiment files under `experiments/`. No scientific computations were changed as part of packaging.
+
+## Reproduce analysis
+
+The primary training dataset contains seven nominal mixture ratios (0, 20, 40, 50, 60, 80, 100% MM-enriched source fraction) for each nominal DP, with true **calibration M% calculated from measured stock-fraction NMR M fractions and mixing proportions**. Nominal 0% and 100% do not mean pure-G or pure-M AOS.
+
+See [`docs/DATA_LAYOUT.md`](docs/DATA_LAYOUT.md) for filenames, [`docs/ANALYSIS_GUIDE.md`](docs/ANALYSIS_GUIDE.md) for the experiments and manuscript-relevant outputs, and [`docs/METHODS_AND_LIMITATIONS.md`](docs/METHODS_AND_LIMITATIONS.md) for scientific interpretation and open checks.
+
+For complete per-version options and version-specific output files, see the five `docs/legacy_readmes/` entries. The default run mode of most experiments is **overnight**; explicitly pass `--run-mode selftest` first.
+
+## Key outputs for a manuscript
+
+* **Figure 3f:** fixed-protocol grouped LOCO over DP3–DP7 × NCE18/22/26, avoiding post-selection minima.
+* **Ablation:** matched K8-only vs K2+K8, with K2 not assumed to improve all conditions.
+* **Figure 4:** DP3/DP4 external GG/MG/MM sample predictions and cross-energy QC; contextual bulk NMR shown separately.
+* **Supplement:** V6.7 nested selection, V6.9 ratio/OOD diagnostics, and **V7.0 permutation inference only after its full real-data run**.
+
+The bundled `results/reported/` CSVs are **existing development exports**, not a re-run of the current frozen pipeline. The **supplied V7.0 CSV exports** are now included under `results/reported/v70/`; these are retained results from an earlier real-data run, **not recomputed during packaging**. Raw spectra and experimental Figure 3c scan-level NMF outputs remain unavailable in this repository. The Figure 3c SVG in `figures/figure3c/examples/` is a visibly watermarked **synthetic preview**, never a scientific result.
+
+## Data and code availability
+
+The manuscript reports HCD-MS/MS deposition at MassIVE accession **MSV000103648**; verify that its actual files and access permissions match the input naming conventions before citing this repository as a complete reproduction. Raw mzML, instrument-native files, calibration stocks' NMR raw datasets, unpublished manuscript Word documents, and checkpoint/prediction caches are **not distributed in this repository**. Do not commit them without the data owners' approval.
+
+No open-source license is assigned by this package. Publication permissions and a license should be agreed with all code contributors before making this repository public.
+
+
+## Figure 3 source code and publication exports (2026-10-22 update)
+
+Figure 3e and 3f are provided as **editable/vector SVG**, PNG, and native PowerPoint
+source objects. They intentionally omit the panel letters and titles; details belong
+in the figure caption. Figure 3e retains the training/held-out legend and the nominal
+mixing labels (0%, 20%, 40%, 50%, 60%, 80%, 100%). Its full 100% column is visible.
+Figure 3f uses fixed-reference V7.0 grouped-LOCO MAE (15 DP/NCE cells).
+
+To regenerate panels 3e and 3f from the included CSV:
+
+```bash
+python figures/figure3e_f/generate_clean_panel_e_f.py \
+  --out-dir outputs/figure3ef
+```
+
+Figure 3c requires the **real DP3/NCE26 calibration mzML** for actual NMF mean and
+scan-level SD. Do not use the included watermarked synthetic preview in the manuscript.
+The full-fit NMF in Figure 3c is descriptive, not held-out validation:
+
+```bash
+python figures/figure3c/plot_figure3c_nmf_errorbars.py --mode selftest
+python figures/figure3c/plot_figure3c_nmf_errorbars.py \
+  --mode real --data-dir /path/to/private/alginate_experiment \
+  --dp 3 --nce 26 --out-dir outputs/figure3c
+```
+
+The Updated Figure 3c script labels its panels **NMF component (W1)** and **NMF component (W2)** (without chemical species assignments); its y-axis is **NMF weight (a.u.)**. The script exports `*_mean_SD.svg`, `.pdf`, and 600-DPI `.png` as
+well as scan-level and summary CSVs. Error bars are **technical scan SD**;
+the seven x-values run from 8% to 85%, with ticks at 10%–80%.
+
+See the [Figure 3c component-label guide](figures/figure3c/README.md), [figure reproduction and source-data notes](docs/FIGURE3_REPRODUCTION.md),
+[manuscript submission checklist](docs/PUBLICATION_CHECKLIST.md), and the
+[manifest](MANIFEST_20261023.json) for precise provenance and limitations.
+
+
+## October 23 code-release update
+
+This release incorporates the latest neutral Figure 3c component labels; verifies the two
+user-approved Figure 3e/f SVGs; and adds independently checkable source-data exports:
+`source_data/figure3f_validation_summary.csv`, `source_data/supplementary_scan_counts_S9.csv`,
+and `source_data/supplementary_fragment_center_annotations.csv`.
+`tools/build_manuscript_source_tables.py` regenerates these tables from **existing
+reported CSVs / implemented code**, without implying raw mzML was reprocessed.
+**See [RELEASE_NOTES_20261023.md](RELEASE_NOTES_20261023.md) before making this repository public.**
