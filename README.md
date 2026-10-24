@@ -93,14 +93,6 @@ python figures/figure3c/plot_figure3c_nmf_errorbars.py \
   --dp 3 --nce 26 --out-dir outputs/figure3c
 ```
 
-The Updated Figure 3c script labels its panels **NMF component (W1)** and **NMF component (W2)** (without chemical species assignments); its y-axis is **NMF weight (a.u.)**. The script exports `*_mean_SD.svg`, `.pdf`, and 600-DPI `.png` as
-well as scan-level and summary CSVs. Error bars are **technical scan SD**;
-the seven x-values run from 8% to 85%, with ticks at 10%–80%.
-
-See the [Figure 3c component-label guide](figures/figure3c/README.md), [figure reproduction and source-data notes](docs/FIGURE3_REPRODUCTION.md),
-[manuscript submission checklist](docs/PUBLICATION_CHECKLIST.md), and the
-[manifest](MANIFEST_20261023.json) for precise provenance and limitations.
-
 
 ## October 23 code-release update
 
