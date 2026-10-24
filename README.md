@@ -46,7 +46,6 @@ A full V7.0 run tests authentic NMR-calibrated labels against 199 composition-*g
 | `figures/figure3c/` | DP3/NCE26 NMF-weight and error-bar figure generator (experimental plot requires mzML) |
 | `figures/figure3e_f/` | Figure 3e LOCO schematic and Figure 3f V7.0 heatmap generators, local source CSV, SVG/PNG |
 | `figures/editable/` | Editable PowerPoint source artwork for Figures 3e and 3f |
-| `figures/figure4/` | Prior Figure 4 SVG/PNG and provenance CSVs, with explanatory limitations |
 | `results/reported/v70/` | Supplied V7.0 real-data analysis CSVs (permutations, validation, external QC) |
 | `docs/` | Data organization, interpretation, limitations, reproducibility checklist |
 
@@ -60,14 +59,6 @@ See [`docs/DATA_LAYOUT.md`](docs/DATA_LAYOUT.md) for filenames, [`docs/ANALYSIS_
 
 For complete per-version options and version-specific output files, see the five `docs/legacy_readmes/` entries. The default run mode of most experiments is **overnight**; explicitly pass `--run-mode selftest` first.
 
-## Key outputs for a manuscript
-
-* **Figure 3f:** fixed-protocol grouped LOCO over DP3–DP7 × NCE18/22/26, avoiding post-selection minima.
-* **Ablation:** matched K8-only vs K2+K8, with K2 not assumed to improve all conditions.
-* **Figure 4:** DP3/DP4 external GG/MG/MM sample predictions and cross-energy QC; contextual bulk NMR shown separately.
-* **Supplement:** V6.7 nested selection, V6.9 ratio/OOD diagnostics, and **V7.0 permutation inference only after its full real-data run**.
-
-The bundled `results/reported/` CSVs are **existing development exports**, not a re-run of the current frozen pipeline. The **supplied V7.0 CSV exports** are now included under `results/reported/v70/`; these are retained results from an earlier real-data run, **not recomputed during packaging**. Raw spectra and experimental Figure 3c scan-level NMF outputs remain unavailable in this repository. The Figure 3c SVG in `figures/figure3c/examples/` is a visibly watermarked **synthetic preview**, never a scientific result.
 
 ## Data and code availability
 
