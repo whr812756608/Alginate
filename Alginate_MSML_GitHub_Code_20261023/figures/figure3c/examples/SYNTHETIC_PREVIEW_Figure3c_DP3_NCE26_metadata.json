@@ -1,0 +1,37 @@
+{
+  "data_source": "SYNTHETIC DEMONSTRATION ONLY \u2014 NOT EXPERIMENTAL DATA",
+  "dp": 3,
+  "nce": 26,
+  "synthetic": true,
+  "component_display_order": [
+    1,
+    2
+  ],
+  "figure_component_labels": {
+    "W1": "display-first neutral NMF component",
+    "W2": "display-second neutral NMF component"
+  },
+  "component_pearson_correlations_with_NMR_M_pct": [
+    0.9999334001419103,
+    -0.9999980022256131
+  ],
+  "count_by_nominal_stock_mix": {
+    "0": 75,
+    "20": 75,
+    "40": 75,
+    "50": 75,
+    "60": 75,
+    "80": 75,
+    "100": 75
+  },
+  "errorbars": "mean \u00b1 sample SD across technical MS/MS scans",
+  "caveat": "technical scan SD is NOT independent sample replicate uncertainty",
+  "files": [
+    "Figure3c_DP3_NCE26_mean_SD.png",
+    "Figure3c_DP3_NCE26_mean_SD.pdf",
+    "Figure3c_DP3_NCE26_mean_SD.svg",
+    "Figure3c_DP3_NCE26_SD_detail.png",
+    "Figure3c_DP3_NCE26_SD_detail.pdf",
+    "Figure3c_DP3_NCE26_SD_detail.svg"
+  ]
+}
