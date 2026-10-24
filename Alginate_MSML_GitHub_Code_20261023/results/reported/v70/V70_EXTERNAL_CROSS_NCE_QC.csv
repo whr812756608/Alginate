@@ -1,0 +1,13 @@
+dp,model,sample,energies,predictions_M_pct,cross_NCE_range_pp,cross_NCE_SD_pp,max_NMF_OOD_pct,min_raw_denominator_support_pct,note
+3,K2_PLUS_K8,GG_block_rich,18;22;26,24.77;27.53;31.24,6.468495292173007,3.2460419507052083,98.71382636655947,100.0,"Cross-NCE stability, NOT DP-specific external accuracy"
+3,K2_PLUS_K8,MG_block_rich,18;22;26,58.56;67.32;75.91,17.349398817466792,8.67482240610286,90.03215434083602,100.0,"Cross-NCE stability, NOT DP-specific external accuracy"
+3,K2_PLUS_K8,MM_block_rich,18;22;26,88.55;88.08;93.01,4.929687174869244,2.7206990921893848,98.37662337662336,100.0,"Cross-NCE stability, NOT DP-specific external accuracy"
+3,K8_ONLY,GG_block_rich,18;22;26,24.30;27.61;32.20,7.899163536877218,3.9672046178519427,,100.0,"Cross-NCE stability, NOT DP-specific external accuracy"
+3,K8_ONLY,MG_block_rich,18;22;26,58.34;68.27;76.47,18.127728378916593,9.077524609867032,,100.0,"Cross-NCE stability, NOT DP-specific external accuracy"
+3,K8_ONLY,MM_block_rich,18;22;26,88.24;88.22;93.59,5.369980369158029,3.0942453068991265,,100.0,"Cross-NCE stability, NOT DP-specific external accuracy"
+4,K2_PLUS_K8,GG_block_rich,18;22;26,66.36;25.73;20.52,45.84594835783085,25.100872206155493,100.0,0.0,"Cross-NCE stability, NOT DP-specific external accuracy"
+4,K2_PLUS_K8,MG_block_rich,18;22;26,79.76;43.98;41.96,37.79508251642898,21.260925173255895,100.0,0.0,"Cross-NCE stability, NOT DP-specific external accuracy"
+4,K2_PLUS_K8,MM_block_rich,18;22;26,97.97;87.09;89.37,10.880393689102675,5.736966932318436,100.0,0.3246753246753247,"Cross-NCE stability, NOT DP-specific external accuracy"
+4,K8_ONLY,GG_block_rich,18;22;26,64.45;24.43;18.28,46.175676027206094,25.072090392429704,,0.0,"Cross-NCE stability, NOT DP-specific external accuracy"
+4,K8_ONLY,MG_block_rich,18;22;26,78.74;45.48;41.65,37.092594076595795,20.398780610548034,,0.0,"Cross-NCE stability, NOT DP-specific external accuracy"
+4,K8_ONLY,MM_block_rich,18;22;26,97.62;87.87;90.07,9.741138174187128,5.108997357248608,,0.3246753246753247,"Cross-NCE stability, NOT DP-specific external accuracy"

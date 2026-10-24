@@ -1,0 +1,13 @@
+dp,nce,model,gg_prediction_M_pct,mg_prediction_M_pct,mm_prediction_M_pct,gg_less_than_mg_less_than_mm,warning
+3,18.0,K2_PLUS_K8,24.77404369395164,58.561362567746144,88.55436146679392,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+3,18.0,K8_ONLY,24.30319355491023,58.339384583917344,88.24432820309885,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+3,22.0,K2_PLUS_K8,27.529447389918737,67.31607345461904,88.08457399866214,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+3,22.0,K8_ONLY,27.605821690567183,68.2654882954293,88.22308447491257,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+3,26.0,K2_PLUS_K8,31.242538986124647,75.91076138521294,93.01426117353138,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+3,26.0,K8_ONLY,32.20235709178745,76.46711296283394,93.5930648440706,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+4,18.0,K2_PLUS_K8,66.36318829179034,79.75585827273596,97.96674341086994,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+4,18.0,K8_ONLY,64.45443414225002,78.74005043178421,97.61603473003925,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+4,22.0,K2_PLUS_K8,25.72657188696389,43.9843838378551,87.08634972176726,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+4,22.0,K8_ONLY,24.434840238858815,45.48201149480282,87.87489655585212,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+4,26.0,K2_PLUS_K8,20.517239933959484,41.96077575630699,89.37200323563718,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"
+4,26.0,K8_ONLY,18.27875811504393,41.64745635518842,90.07371859416553,True,"Expected ordering is a plausibility diagnostic, not independent accuracy"

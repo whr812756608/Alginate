@@ -1,0 +1,13 @@
+dp,nce,model,mean_absolute_bulk_discrepancy_DESCRIPTIVE_pp,n_external_materials,warning
+3,18.0,K2_PLUS_K8,8.963255909497235,3,Descriptive comparison; NOT external validation MAE
+3,18.0,K8_ONLY,8.62896878064214,3,Descriptive comparison; NOT external validation MAE
+3,22.0,K2_PLUS_K8,12.643364947733305,3,Descriptive comparison; NOT external validation MAE
+3,22.0,K8_ONLY,13.031464820303015,3,Descriptive comparison; NOT external validation MAE
+3,26.0,K2_PLUS_K8,18.389187181622987,3,Descriptive comparison; NOT external validation MAE
+3,26.0,K8_ONLY,19.08751163289733,3,Descriptive comparison; NOT external validation MAE
+4,18.0,K2_PLUS_K8,33.02859665846541,3,Descriptive comparison; NOT external validation MAE
+4,18.0,K8_ONLY,31.936839768024495,3,Descriptive comparison; NOT external validation MAE
+4,22.0,K2_PLUS_K8,8.609512590292018,3,Descriptive comparison; NOT external validation MAE
+4,22.0,K8_ONLY,7.942575099969371,3,Descriptive comparison; NOT external validation MAE
+4,26.0,K2_PLUS_K8,8.309489137763226,3,Descriptive comparison; NOT external validation MAE
+4,26.0,K8_ONLY,7.901673451340347,3,Descriptive comparison; NOT external validation MAE

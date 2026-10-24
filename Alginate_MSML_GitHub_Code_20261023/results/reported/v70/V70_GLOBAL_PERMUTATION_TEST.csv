@@ -1,0 +1,3 @@
+model,observed_macro_MAE_pp,null_median_macro_MAE_pp,null_5th_pct,permutation_p_one_sided,permutations,n_conditions,n_composition_predictions,independent_material_caveat
+K2_PLUS_K8,2.657165925211332,23.54064789783687,22.868666058206212,0.01,199,15,105,Seven compositions share source fractions; conditions are correlated
+K8_ONLY,2.607908995464574,23.403849575104555,22.8511515279528,0.01,199,15,105,Seven compositions share source fractions; conditions are correlated

@@ -1,0 +1,35 @@
+theoretical_mz,retained_by_processing_code,source,note
+113.0244,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+131.0350,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+157.0142,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+175.0248,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+193.0354,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+291.0358,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+307.0671,No,S4 theoretical-only set,Not in 24-center code list
+309.0463,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+333.0463,No,S4 theoretical-only set,Not in 24-center code list
+351.0569,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+369.0675,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+467.0679,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+483.0992,No,S4 theoretical-only set,Not in 24-center code list
+485.0784,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+509.0784,No,S4 theoretical-only set,Not in 24-center code list
+527.0890,No,S4 theoretical-only set,Not in 24-center code list
+545.0996,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+587.1101,No,S4 theoretical-only set,Not in 24-center code list
+643.0999,No,S4 theoretical-only set,Not in 24-center code list
+659.1313,No,S4 theoretical-only set,Not in 24-center code list
+661.1105,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+685.1105,No,S4 theoretical-only set,Not in 24-center code list
+703.1211,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+721.1316,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+837.1426,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+861.1426,No,S4 theoretical-only set,Not in 24-center code list
+879.1532,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+897.1637,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+1037.1747,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+1055.1853,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+1073.1958,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+1189.2068,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+1231.2174,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
+1249.2279,Yes,alginate_ratio_transfer_IDE.py:ALL_FILTER_CENTERS,Retained center; may be DP-filtered
