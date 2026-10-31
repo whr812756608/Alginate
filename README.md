@@ -2,9 +2,7 @@
 
 Reproducible **research-development code** for learning composition-associated fragmentation patterns in alginate oligosaccharides (AOS) without requiring sequence-pure AOS standards.
 
-**Scope:** DP3–DP7 calibration mixtures at HCD NCE 18%, 22%, and 26%, using NMR-calibrated mixture labels, two-component nonnegative matrix factorization (K2) and eight diagnostic fragment-ion ratios (K8), standardized Ridge regression, and grouped leave-one-composition-out (LOCO) validation. External inference is available for three unfractionated AOS populations at DP3/DP4 only.
-
-> **Important distinction:** External GG-, MG-, and MM-rich materials have bulk (DP-unresolved) NMR M fractions of 12%, 51%, and 82%. These are contextual measurements, **not known DP3- or DP4-specific targets**. Agreement with bulk NMR does not establish DP-specific external predictive accuracy. Some development experiments explored preprocessing after viewing external agreement; they must not be described as blind validation.
+**Scope:** DP3–DP7 calibration mixtures at HCD NCE 18%, 22%, and 26%, using NMR-calibrated mixture labels, two-component nonnegative matrix factorization (K2) and eight diagnostic fragment-ion ratios (K8), standardized Ridge regression, and leave-one-out cross-validation (LOO-CV), holding out all spectra from one calibration composition per fold.
 
 ## Quick start
 
@@ -28,7 +26,7 @@ python experiments/alginate_V70_EVIDENCE_EXISTING_DATA_IDE.py \
   --out-dir ./outputs/v70
 ```
 
-A full V7.0 run tests authentic NMR-calibrated labels against 199 composition-*group* label permutations, uses a fixed common preprocessing reference, performs K8-only and joint K2+K8 comparisons, and runs frozen external inference. This is a **within-calibration statistical check**, not independent DP-specific external ground truth.
+A full V7.0 run uses fixed-reference preprocessing and composition-grouped LOO-CV, and includes K8-only versus K2+K8 comparisons and 199 grouped-label permutations. These analyses assess performance within the calibration-mixture system, not independently measured DP-specific external accuracy.
 
 ## Repository structure
 
@@ -39,12 +37,12 @@ A full V7.0 run tests authentic NMR-calibrated labels against 199 composition-*g
 | `experiments/alginate_V67_*.py` | Higher DP5–DP7 preprocessing sensitivity and nested selection |
 | `experiments/alginate_V68_*.py` | DP3/NCE26 calibration/external transfer ablations |
 | `experiments/alginate_V69_*.py` | DP3 three-NCE ratio-distribution and model-domain diagnostics |
-| `experiments/alginate_V70_*.py` | Current primary calibration-label permutation and external QC experiments |
+| `experiments/alginate_V70_*.py` | Current V7.0 LOO-CV, feature comparisons, and grouped-label permutation experiments |
 | `tests/` | Synthetic acceptance tests (not scientific validation) |
 | `results/reported/` | Selected CSV exports from earlier real-data runs, identified by script version |
 | `docs/legacy_readmes/` | Original experiment-specific instructions and changelogs |
 | `figures/figure3c/` | DP3/NCE26 NMF-weight and error-bar figure generator (experimental plot requires mzML) |
-| `figures/figure3e_f/` | Figure 3e LOCO schematic and Figure 3f V7.0 heatmap generators, local source CSV, SVG/PNG |
+| `figures/figure3e_f/` | Figure 3e LOO-CV schematic and Figure 3f V7.0 heatmap generators, local source CSV, SVG/PNG |
 | `figures/editable/` | Editable PowerPoint source artwork for Figures 3e and 3f |
 | `results/reported/v70/` | Supplied V7.0 real-data analysis CSVs (permutations, validation, external QC) |
 | `docs/` | Data organization, interpretation, limitations, reproducibility checklist |
@@ -73,7 +71,7 @@ Figure 3e and 3f are provided as **editable/vector SVG**, PNG, and native PowerP
 source objects. They intentionally omit the panel letters and titles; details belong
 in the figure caption. Figure 3e retains the training/held-out legend and the nominal
 mixing labels (0%, 20%, 40%, 50%, 60%, 80%, 100%). Its full 100% column is visible.
-Figure 3f uses fixed-reference V7.0 grouped-LOCO MAE (15 DP/NCE cells).
+Figure 3f uses fixed-reference V7.0 LOO-CV MAE (15 DP/NCE cells; one complete calibration composition held out per fold).
 
 To regenerate panels 3e and 3f from the included CSV:
 
