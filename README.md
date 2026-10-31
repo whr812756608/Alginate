@@ -63,30 +63,3 @@ For complete per-version options and version-specific output files, see the five
 The manuscript reports HCD-MS/MS deposition at MassIVE accession **MSV000103648**; verify that its actual files and access permissions match the input naming conventions before citing this repository as a complete reproduction. Raw mzML, instrument-native files, calibration stocks' NMR raw datasets, unpublished manuscript Word documents, and checkpoint/prediction caches are **not distributed in this repository**. Do not commit them without the data owners' approval.
 
 No open-source license is assigned by this package. Publication permissions and a license should be agreed with all code contributors before making this repository public.
-
-
-## Figure 3 source code and publication exports (2026-10-22 update)
-
-Figure 3e and 3f are provided as **editable/vector SVG**, PNG, and native PowerPoint
-source objects. They intentionally omit the panel letters and titles; details belong
-in the figure caption. Figure 3e retains the training/held-out legend and the nominal
-mixing labels (0%, 20%, 40%, 50%, 60%, 80%, 100%). Its full 100% column is visible.
-Figure 3f summarizes fixed-protocol LOO-CV mean absolute error (15 DP/NCE conditions; one complete calibration composition held out per fold).
-
-To regenerate panels 3e and 3f from the included CSV:
-
-```bash
-python figures/figure3e_f/generate_clean_panel_e_f.py \
-  --out-dir outputs/figure3ef
-```
-
-Figure 3c requires the **real DP3/NCE26 calibration mzML** for actual NMF mean and
-scan-level SD. Do not use the included watermarked synthetic preview in the manuscript.
-The full-fit NMF in Figure 3c is descriptive, not held-out validation:
-
-```bash
-python figures/figure3c/plot_figure3c_nmf_errorbars.py --mode selftest
-python figures/figure3c/plot_figure3c_nmf_errorbars.py \
-  --mode real --data-dir /path/to/private/alginate_experiment \
-  --dp 3 --nce 26 --out-dir outputs/figure3c
-```
