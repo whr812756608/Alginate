@@ -29,6 +29,8 @@ python experiments/alginate_V70_EVIDENCE_EXISTING_DATA_IDE.py \
 
 The fixed-protocol analysis applies the same preprocessing configuration across DP3–DP7 and NCE 18%, 22%, and 26%. For each DP/NCE condition, two NMF-derived coefficients and eight selected fragment-ion intensity ratios are used in Ridge regression. Performance is evaluated by LOO-CV, withholding one complete calibration composition per fold. This assesses prediction within the calibration-mixture system, not independently measured DP-specific external accuracy.
 
+For the required mzML filenames and input directory organization, see the [data layout guide](Alginate_MSML_GitHub_Code_20261023/docs/DATA_LAYOUT.md).
+
 ## Repository structure
 
 | Location | Content |
@@ -49,16 +51,6 @@ The fixed-protocol analysis applies the same preprocessing configuration across 
 | `docs/` | Data organization, interpretation, limitations, reproducibility checklist |
 
 V6.6 is imported by downstream scripts and is intentionally located at the repository root. Each experiment script additionally contains a small import-path adapter needed because the repo now groups experiment files under `experiments/`. No scientific computations were changed as part of packaging.
-
-## Reproducibility
-
-This repository provides the Python analysis workflow and selected source-data tables for NMR-calibrated HCD-MS/MS prediction of alginate M/G composition. The original mzML files are required to rerun model fitting and validation; they are not included in the repository.
-
-The calibration dataset comprises seven nominal stock-mixture proportions (0%, 20%, 40%, 50%, 60%, 80%, and 100%) for each degree of polymerization (DP3–DP7). These percentages describe the preparation of the mixtures, **not their measured M fractions**. Regression targets are calculated from the NMR-characterized stock fractions and their mixing proportions.
-
-Model performance is assessed using **leave-one-out cross-validation (LOO-CV)** at each of the 15 DP/NCE conditions (five DPs × three collision energies). Each fold withholds all spectra from one calibration composition and uses the remaining six compositions for model fitting. The seven folds per condition yield 105 composition-level held-out predictions in total.
-
-To reproduce the analysis, follow **Quick start** from the code directory and organize the mzML inputs as specified in the [data layout guide](Alginate_MSML_GitHub_Code_20261023/docs/DATA_LAYOUT.md). The [analysis guide](Alginate_MSML_GitHub_Code_20261023/docs/ANALYSIS_GUIDE.md) describes the available experiments, and [reported results](Alginate_MSML_GitHub_Code_20261023/results/reported/) contain selected outputs from prior real-data runs. The included synthetic tests check software operation; **they are not experimental validation or substitutes for reprocessing the original spectra**.
 
 ## Data and code availability
 
