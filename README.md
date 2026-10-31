@@ -13,7 +13,7 @@ python -m venv .venv
 source .venv/bin/activate              # Windows: .venv\Scripts\activate
 python -m pip install -r requirements.txt
 
-# Run the V7.0 pipeline selftest (no mzML required):
+# Run the fixed-protocol calibration analysis self-test (no mzML required):
 python experiments/alginate_V70_EVIDENCE_EXISTING_DATA_IDE.py --run-mode selftest
 
 # Synthetic integration tests — results are NOT scientific measurements:
@@ -26,7 +26,7 @@ python experiments/alginate_V70_EVIDENCE_EXISTING_DATA_IDE.py \
   --out-dir ./outputs/v70
 ```
 
-A full V7.0 run uses fixed-reference preprocessing and composition-grouped LOO-CV, and includes K8-only versus K2+K8 comparisons and 199 grouped-label permutations. These analyses assess performance within the calibration-mixture system, not independently measured DP-specific external accuracy.
+The fixed-protocol analysis applies the same preprocessing configuration across DP3–DP7 and NCE 18%, 22%, and 26%. It evaluates prediction of held-out calibration compositions using LOO-CV and includes K8-only versus K2+K8 comparisons and 199 grouped-label permutations. These analyses assess prediction within the calibration-mixture system, not independently measured DP-specific external accuracy.
 
 ## Repository structure
 
@@ -37,14 +37,14 @@ A full V7.0 run uses fixed-reference preprocessing and composition-grouped LOO-C
 | `experiments/alginate_V67_*.py` | Higher DP5–DP7 preprocessing sensitivity and nested selection |
 | `experiments/alginate_V68_*.py` | DP3/NCE26 calibration/external transfer ablations |
 | `experiments/alginate_V69_*.py` | DP3 three-NCE ratio-distribution and model-domain diagnostics |
-| `experiments/alginate_V70_*.py` | Current V7.0 LOO-CV, feature comparisons, and grouped-label permutation experiments |
+| `experiments/alginate_V70_*.py` | Fixed-protocol LOO-CV, feature comparisons, and grouped-label permutation experiments |
 | `tests/` | Synthetic acceptance tests (not scientific validation) |
 | `results/reported/` | Selected CSV exports from earlier real-data runs, identified by script version |
 | `docs/legacy_readmes/` | Original experiment-specific instructions and changelogs |
 | `figures/figure3c/` | DP3/NCE26 NMF-weight and error-bar figure generator (experimental plot requires mzML) |
-| `figures/figure3e_f/` | Figure 3e LOO-CV schematic and Figure 3f V7.0 heatmap generators, local source CSV, SVG/PNG |
+| `figures/figure3e_f/` | Figure 3e LOO-CV schematic and Figure 3f calibration MAE heatmap generators, local source CSV, SVG/PNG |
 | `figures/editable/` | Editable PowerPoint source artwork for Figures 3e and 3f |
-| `results/reported/v70/` | Supplied V7.0 real-data analysis CSVs (permutations, validation, external QC) |
+| `results/reported/v70/` | Archived analysis outputs: calibration LOO-CV, feature comparisons, permutation controls, and exploratory diagnostics |
 | `docs/` | Data organization, interpretation, limitations, reproducibility checklist |
 
 V6.6 is imported by downstream scripts and is intentionally located at the repository root. Each experiment script additionally contains a small import-path adapter needed because the repo now groups experiment files under `experiments/`. No scientific computations were changed as part of packaging.
@@ -71,7 +71,7 @@ Figure 3e and 3f are provided as **editable/vector SVG**, PNG, and native PowerP
 source objects. They intentionally omit the panel letters and titles; details belong
 in the figure caption. Figure 3e retains the training/held-out legend and the nominal
 mixing labels (0%, 20%, 40%, 50%, 60%, 80%, 100%). Its full 100% column is visible.
-Figure 3f uses fixed-reference V7.0 LOO-CV MAE (15 DP/NCE cells; one complete calibration composition held out per fold).
+Figure 3f summarizes fixed-protocol LOO-CV mean absolute error (15 DP/NCE conditions; one complete calibration composition held out per fold).
 
 To regenerate panels 3e and 3f from the included CSV:
 
