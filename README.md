@@ -90,14 +90,3 @@ python figures/figure3c/plot_figure3c_nmf_errorbars.py \
   --mode real --data-dir /path/to/private/alginate_experiment \
   --dp 3 --nce 26 --out-dir outputs/figure3c
 ```
-
-
-## October 23 code-release update
-
-This release incorporates the latest neutral Figure 3c component labels; verifies the two
-user-approved Figure 3e/f SVGs; and adds independently checkable source-data exports:
-`source_data/figure3f_validation_summary.csv`, `source_data/supplementary_scan_counts_S9.csv`,
-and `source_data/supplementary_fragment_center_annotations.csv`.
-`tools/build_manuscript_source_tables.py` regenerates these tables from **existing
-reported CSVs / implemented code**, without implying raw mzML was reprocessed.
-**See [RELEASE_NOTES_20261023.md](RELEASE_NOTES_20261023.md) before making this repository public.**
