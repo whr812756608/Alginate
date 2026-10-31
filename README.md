@@ -2,7 +2,7 @@
 
 Reproducible **research-development code** for learning composition-associated fragmentation patterns in alginate oligosaccharides (AOS) without requiring sequence-pure AOS standards.
 
-**Scope:** DP3–DP7 calibration mixtures at HCD NCE 18%, 22%, and 26%, using NMR-calibrated mixture labels, two-component nonnegative matrix factorization (K2) and eight diagnostic fragment-ion ratios (K8), standardized Ridge regression, and leave-one-out cross-validation (LOO-CV), holding out all spectra from one calibration composition per fold.
+**Scope:** DP3–DP7 calibration mixtures at HCD NCE 18%, 22%, and 26%, using NMR-calibrated mixture labels, two NMF-derived coefficients and eight diagnostic fragment-ion intensity ratios, standardized Ridge regression, and leave-one-out cross-validation (LOO-CV), holding out all spectra from one calibration composition per fold.
 
 ## Quick start
 
@@ -26,7 +26,7 @@ python experiments/alginate_V70_EVIDENCE_EXISTING_DATA_IDE.py \
   --out-dir ./outputs/v70
 ```
 
-The fixed-protocol analysis applies the same preprocessing configuration across DP3–DP7 and NCE 18%, 22%, and 26%. It evaluates prediction of held-out calibration compositions using LOO-CV and includes K8-only versus K2+K8 comparisons and 199 grouped-label permutations. These analyses assess prediction within the calibration-mixture system, not independently measured DP-specific external accuracy.
+The fixed-protocol analysis applies the same preprocessing configuration across DP3–DP7 and NCE 18%, 22%, and 26%. For each DP/NCE condition, two NMF-derived coefficients and eight selected fragment-ion intensity ratios are used in Ridge regression. Performance is evaluated by LOO-CV, withholding one complete calibration composition per fold. This assesses prediction within the calibration-mixture system, not independently measured DP-specific external accuracy.
 
 ## Repository structure
 
