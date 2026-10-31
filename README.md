@@ -6,7 +6,7 @@ Reproducible **research-development code** for learning composition-associated f
 
 ## Quick start
 
-Requires Python 3.10+ (3.11 recommended). Run the following commands from the code directory shown below; real-data analyses require the original mzML files, while synthetic tests do not.
+Requires Python 3.10+. Run the following commands from the code directory shown below; real-data analyses require the original mzML files, while synthetic tests do not.
 
 ```bash
 cd Alginate_MSML_GitHub_Code_20261023
