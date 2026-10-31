@@ -6,9 +6,10 @@ Reproducible **research-development code** for learning composition-associated f
 
 ## Quick start
 
-Requires Python 3.10+ (3.11 recommended) and the original mzML files for real-data runs. Synthetic tests require no real mzML.
+Requires Python 3.10+ (3.11 recommended). Run the following commands from the code directory shown below; real-data analyses require the original mzML files, while synthetic tests do not.
 
 ```bash
+cd Alginate_MSML_GitHub_Code_20261023
 python -m venv .venv
 source .venv/bin/activate              # Windows: .venv\Scripts\activate
 python -m pip install -r requirements.txt
@@ -49,14 +50,15 @@ The fixed-protocol analysis applies the same preprocessing configuration across 
 
 V6.6 is imported by downstream scripts and is intentionally located at the repository root. Each experiment script additionally contains a small import-path adapter needed because the repo now groups experiment files under `experiments/`. No scientific computations were changed as part of packaging.
 
-## Reproduce analysis
+## Reproducibility
 
-The primary training dataset contains seven nominal mixture ratios (0, 20, 40, 50, 60, 80, 100% MM-enriched source fraction) for each nominal DP, with true **calibration M% calculated from measured stock-fraction NMR M fractions and mixing proportions**. Nominal 0% and 100% do not mean pure-G or pure-M AOS.
+This repository provides the Python analysis workflow and selected source-data tables for NMR-calibrated HCD-MS/MS prediction of alginate M/G composition. The original mzML files are required to rerun model fitting and validation; they are not included in the repository.
 
-See [`docs/DATA_LAYOUT.md`](docs/DATA_LAYOUT.md) for filenames, [`docs/ANALYSIS_GUIDE.md`](docs/ANALYSIS_GUIDE.md) for the experiments and manuscript-relevant outputs, and [`docs/METHODS_AND_LIMITATIONS.md`](docs/METHODS_AND_LIMITATIONS.md) for scientific interpretation and open checks.
+The calibration dataset comprises seven nominal stock-mixture proportions (0%, 20%, 40%, 50%, 60%, 80%, and 100%) for each degree of polymerization (DP3–DP7). These percentages describe the preparation of the mixtures, **not their measured M fractions**. Regression targets are calculated from the NMR-characterized stock fractions and their mixing proportions.
 
-For complete per-version options and version-specific output files, see the five `docs/legacy_readmes/` entries. The default run mode of most experiments is **overnight**; explicitly pass `--run-mode selftest` first.
+Model performance is assessed using **leave-one-out cross-validation (LOO-CV)** at each of the 15 DP/NCE conditions (five DPs × three collision energies). Each fold withholds all spectra from one calibration composition and uses the remaining six compositions for model fitting. The seven folds per condition yield 105 composition-level held-out predictions in total.
 
+To reproduce the analysis, follow **Quick start** from the code directory and organize the mzML inputs as specified in the [data layout guide](Alginate_MSML_GitHub_Code_20261023/docs/DATA_LAYOUT.md). The [analysis guide](Alginate_MSML_GitHub_Code_20261023/docs/ANALYSIS_GUIDE.md) describes the available experiments, and [reported results](Alginate_MSML_GitHub_Code_20261023/results/reported/) contain selected outputs from prior real-data runs. The included synthetic tests check software operation; **they are not experimental validation or substitutes for reprocessing the original spectra**.
 
 ## Data and code availability
 
