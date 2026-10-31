@@ -1,4 +1,4 @@
-# Input data layout (real scientific runs)
+# Input data layout
 
 Place original mzML files under the directory specified by `--data-dir` (or the legacy default `~/Desktop/alginate_experiment`). Do **not** put raw mzML in this Git repository.
 
