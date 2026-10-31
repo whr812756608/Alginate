@@ -1,4 +1,4 @@
-# Alginate MS–ML — NMR-calibrated AOS composition modeling
+# Alginate MS–ML — NMR-calibrated AOS M/G ratio prediction
 
 Reproducible **research-development code** for learning composition-associated fragmentation patterns in alginate oligosaccharides (AOS) without requiring sequence-pure AOS standards.
 
