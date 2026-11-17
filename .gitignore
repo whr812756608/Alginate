@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+outputs/
+results/generated/
+data/raw/
+data/private/
+models/
+*.mzML
+*.raw
+.DS_Store

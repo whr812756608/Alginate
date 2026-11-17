@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "code_status": "implementation_pending_parity",
+  "common": {
+    "feature_description": "2 NMF coefficients + 8 ion ratios",
+    "rank": 2,
+    "n_ion_ratios": 8,
+    "nce": [
+      18,
+      22,
+      26
+    ],
+    "model": "Ridge",
+    "validation": "grouped LOO by calibration composition",
+    "external_dp": [
+      3,
+      4
+    ]
+  },
+  "models": {
+    "3": {
+      "source_selection": "V53 97e3371114218f",
+      "status": "selected retrospective",
+      "sigma_da": 1.5,
+      "normalization": "ORIGINAL7",
+      "lambda": 1,
+      "nmf_basis_implementation": "fixed-endmember NNLS",
+      "nmf_input": "DROP3",
+      "coefficient_representation": "raw",
+      "gamma": 4,
+      "alpha": 0.03,
+      "ratio_policy": "frozen",
+      "ratios": [
+        "I_175.025/I_291.036",
+        "I_175.025/I_309.046",
+        "I_175.025/I_485.078",
+        "I_193.035/I_291.036",
+        "I_193.035/I_309.046",
+        "I_351.057/I_485.078",
+        "I_113.024/I_351.057",
+        "I_193.035/I_485.078"
+      ],
+      "loo_mae_pp_by_nce": {
+        "18": 1.397,
+        "22": 0.935,
+        "26": 1.185
+      }
+    },
+    "4": {
+      "source_selection": "V53 dea2cc709d832b",
+      "status": "selected retrospective",
+      "sigma_da": 0.5,
+      "normalization": "GALL",
+      "lambda": 1,
+      "nmf_basis_implementation": "learned rank-2",
+      "nmf_input": "DROP3",
+      "coefficient_representation": "raw",
+      "gamma": 1,
+      "alpha": 0.03,
+      "ratio_policy": "frozen",
+      "ratios": [
+        "I_131.035/I_369.067",
+        "I_175.025/I_351.057",
+        "I_175.025/I_545.1",
+        "I_291.036/I_545.1",
+        "I_351.057/I_545.1",
+        "I_351.057/I_369.067",
+        "I_291.036/I_369.067",
+        "I_113.024/I_175.025"
+      ],
+      "loo_mae_pp_by_nce": {
+        "18": 1.446,
+        "22": 1.251,
+        "26": 1.032
+      }
+    },
+    "5": {
+      "source_selection": "V54 learned COEF",
+      "status": "selected retrospective",
+      "sigma_da": 1.5,
+      "normalization": "EQ5 per-scan",
+      "lambda": 1,
+      "nmf_basis_implementation": "learned rank-2",
+      "nmf_input": "full mass range",
+      "coefficient_representation": "raw",
+      "gamma": 4,
+      "alpha": 1,
+      "ratio_policy": "training-only selection",
+      "ratios": null,
+      "loo_mae_pp_by_nce": {
+        "18": 3.475,
+        "22": 2.511,
+        "26": 2.207
+      }
+    },
+    "6": {
+      "source_selection": "V52 V50_DP_SPECIFIC GAMMA_0.25 FIXED",
+      "status": "provisional",
+      "sigma_da": 0,
+      "normalization": "EQ5 per-scan",
+      "lambda": 0.5,
+      "nmf_basis_implementation": "fixed-endmember NNLS",
+      "nmf_input": "full mass range",
+      "coefficient_representation": "raw",
+      "gamma": 0.25,
+      "alpha": 1,
+      "ratio_policy": "training-only selection",
+      "ratios": null,
+      "loo_mae_pp_by_nce": {
+        "18": 4.589,
+        "22": 2.554,
+        "26": 3.733
+      }
+    },
+    "7": {
+      "source_selection": "V52 V50_DP_SPECIFIC GLOBAL_REFERENCE LEARNED",
+      "status": "provisional",
+      "sigma_da": 0,
+      "normalization": "global",
+      "lambda": 0,
+      "nmf_basis_implementation": "learned rank-2",
+      "nmf_input": "full mass range",
+      "coefficient_representation": "raw",
+      "gamma": 0.25,
+      "alpha": 1,
+      "ratio_policy": "training-only selection",
+      "ratios": null,
+      "loo_mae_pp_by_nce": {
+        "18": 3.913,
+        "22": 3.335,
+        "26": 2.92
+      }
+    }
+  },
+  "caveats": [
+    "Model choices are retrospective; reported LOO does not account for prior recipe selection.",
+    "DP5-DP7 K8 ratios are chosen inside each training fold; they are not a single verified universal frozen list.",
+    "Full raw-data parity requires original mzML and verified preprocessing recipes; DP6/DP7 upstream V51 reference recipe not yet verified.",
+    "External GG/MG/MM NMR values (12/51/82 percent) represent bulk, not DP-resolved ground truth."
+  ]
+}
