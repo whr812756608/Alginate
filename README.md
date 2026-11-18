@@ -38,18 +38,11 @@ The intended reproducible analysis consists of:
 
 1. Reading and preprocessing calibration HCD-MS/MS spectra.
 2. Extracting two NMF coefficients and eight selected ion-intensity ratios.
-3. Evaluating models with seven-fold **leave-one-out cross-validation (LOO-CV)**, holding out all spectra from one calibration composition per fold.
+3. Evaluating models with seven-fold leave-one-out cross-validation (LOO-CV), holding out all spectra from one calibration composition per fold.
 4. Fitting final DP × NCE models using all calibration compositions.
-5. Applying the frozen DP3/DP4 models to external AOS spectra without external adaptation.
+5. Applying the frozen DP3/DP4 models to external AOS spectra for M% prediction.
 
 The corresponding preprocessing, model-training, evaluation, and external-prediction implementations are **under numerical verification** and are not yet operational in this public release. Commands to reproduce the manuscript's tables and figures will be documented here after validation.
 
-## Interpretation
-
-The selected-model LOO results are retrospective: the calibration compositions were also used during method development, so the scores do not represent fully independent model-selection validation.
-
-The GG/MG/MM external NMR reference values describe **bulk composition**, not DP3- or DP4-specific ground truth. Agreement with those references should not be reported as DP-specific external prediction accuracy.
-
 ## Citation
-
-The manuscript citation and tagged software version will be added upon publication. No open-source license has yet been assigned; public availability alone does not grant reuse rights.
+The manuscript citation and tagged software version will be added upon publication.
