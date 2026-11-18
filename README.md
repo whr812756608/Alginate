@@ -30,8 +30,7 @@ These are software tests, not a reproduction of the experimental results.
 
 Calibration measurements comprise seven nominal M-rich compositions (0, 20, 40, 50, 60, 80, and 100%) for each DP. The corresponding NMR-derived composition values are used as regression targets. The analysis also includes external GG-rich, MG-rich, and MM-rich AOS samples for DP3/DP4 prediction.
 
-Raw HCD-MS/MS data were previously referenced under **MassIVE accession MSV000103648**. File access, coverage, and correspondence with the analysis inputs should be confirmed against the data record. Original mzML files are not included here.
-
+Raw HCD-MS/MS data were referenced under **MassIVE accession MSV000103648**. 
 ## Usage
 
 The intended reproducible analysis consists of:
