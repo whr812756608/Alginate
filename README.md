@@ -1,38 +1,55 @@
-# NMR-calibrated prediction of alginate oligosaccharide composition from HCD-MS/MS
+# Alginate MS/MS Composition Prediction
 
-This repository contains research code and associated analysis resources for estimating the mannuronic acid (M) fraction of alginate oligosaccharides (AOS) from higher-energy collisional dissociation tandem mass spectrometry (HCD-MS/MS). The study covers degrees of polymerization **DP3–DP7** at normalized collision energies **18, 22, and 26**, using composition references obtained by NMR.
+Research code for predicting the mannuronic acid (M) fraction of alginate oligosaccharide (AOS) mixtures from higher-energy collisional dissociation tandem mass spectrometry (HCD-MS/MS), using NMR-calibrated composition references.
 
-## Method
+The study covers **DP3–DP7** at normalized collision energies (**NCE**) of **18, 22, and 26**. Each model combines two nonnegative matrix factorization (NMF, *K* = 2) coefficients and eight fragment-ion intensity ratios (*K* = 8) with Ridge regression.
 
-The approach combines **two nonnegative NMF-derived coefficients (K = 2)** with **eight diagnostic fragment-ion intensity ratios (K = 8)** as inputs to Ridge regression. Spectral selection, m/z processing, smoothing, and intensity normalization are applied according to the DP-specific analysis settings.
+**Publication status:** This repository is being prepared for the accompanying manuscript. The complete numerical reproduction pipeline is not yet available on the public branch.
 
-Model evaluation uses composition-grouped leave-one-out cross-validation (**LOO-CV**). For each fold, all scans from one of the seven calibration compositions are withheld, and fitted transformations and regression are learned from the remaining compositions. Final models are trained on the full calibration dataset after evaluation. Models for DP3 and DP4 are also applied to external GG-rich, MG-rich, and MM-rich AOS samples without external calibration or adaptation.
+## Requirements and Installation
 
-The computational settings are recorded in [`configs/models.json`](configs/models.json). The implementation is organized as a Python package under `src/alginate_ms2/`, with analysis entry points under `scripts/`.
-
-## Installation
-
-Python 3.10 or newer is required. To install the current package and run its software tests:
+Python 3.10 or later is required.
 
 ```bash
+git clone https://github.com/whr812756608/Alginate.git
+cd Alginate
+python3 -m venv .venv
+source .venv/bin/activate
 python -m pip install -e '.[test]'
-python -m pytest
 ```
 
-**Current reproducibility status:** The scientific implementation is still being consolidated and checked against the selected research analyses. The current checkout includes model metadata, a composition-grouped LOO splitting utility, and structural tests, but its raw-spectrum preprocessing, NMF/ratio extraction, final model-fitting, and external-inference entry points are **not yet validated or operational**. The tests above are software checks, **not** a reproduction of the experimental results. Please do not treat this checkout as a completed manuscript reproduction package.
+The current checkout supports configuration checks and the composition-grouped cross-validation splitter:
 
-## Data availability
+```bash
+python -m pytest -q
+```
 
-Reproduction from original spectra requires the calibration and external mzML files, the corresponding sample metadata, and NMR-derived composition references. Earlier project documentation identifies MassIVE accession **MSV000103648**; the accessibility and completeness of the deposited files must be confirmed before raw-data reproduction can be claimed.
+These are software tests, not a reproduction of the experimental results.
 
-Original raw files and unpublished data are not included in this GitHub repository.
+## Data
 
-## Interpretation and limitations
+Calibration measurements comprise seven nominal M-rich compositions (0, 20, 40, 50, 60, 80, and 100%) for each DP. The corresponding NMR-derived composition values are used as regression targets. The analysis also includes external GG-rich, MG-rich, and MM-rich AOS samples for DP3/DP4 prediction.
 
-The reported LOO results are based on seven calibration composition groups, with an independent regression for each DP × NCE condition. Because the analysis configurations were developed retrospectively using the same calibration series, fixed-recipe LOO results do **not** measure fully selection-independent generalization.
+Raw HCD-MS/MS data were previously referenced under **MassIVE accession MSV000103648**. File access, coverage, and correspondence with the analysis inputs should be confirmed against the data record. Original mzML files are not included here.
 
-The external GG-rich, MG-rich, and MM-rich materials have **bulk**, DP-unresolved NMR references (12%, 51%, and 82% M, respectively). Comparisons with those references are descriptive agreement with bulk composition, not independently measured DP3- or DP4-specific prediction accuracy.
+## Usage
 
-## Citation and use
+The intended reproducible analysis consists of:
 
-Manuscript citation details and an approved software license will be added after release preparation. The code is publicly viewable, but no open-source reuse license has yet been assigned.
+1. Reading and preprocessing calibration HCD-MS/MS spectra.
+2. Extracting two NMF coefficients and eight selected ion-intensity ratios.
+3. Evaluating models with seven-fold **leave-one-out cross-validation (LOO-CV)**, holding out all spectra from one calibration composition per fold.
+4. Fitting final DP × NCE models using all calibration compositions.
+5. Applying the frozen DP3/DP4 models to external AOS spectra without external adaptation.
+
+The corresponding preprocessing, model-training, evaluation, and external-prediction implementations are **under numerical verification** and are not yet operational in this public release. Commands to reproduce the manuscript's tables and figures will be documented here after validation.
+
+## Interpretation
+
+The selected-model LOO results are retrospective: the calibration compositions were also used during method development, so the scores do not represent fully independent model-selection validation.
+
+The GG/MG/MM external NMR reference values describe **bulk composition**, not DP3- or DP4-specific ground truth. Agreement with those references should not be reported as DP-specific external prediction accuracy.
+
+## Citation
+
+The manuscript citation and tagged software version will be added upon publication. No open-source license has yet been assigned; public availability alone does not grant reuse rights.
