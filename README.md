@@ -42,7 +42,5 @@ The intended reproducible analysis consists of:
 4. Fitting final DP × NCE models using all calibration compositions.
 5. Applying the frozen DP3/DP4 models to external AOS spectra for M% prediction.
 
-The corresponding preprocessing, model-training, evaluation, and external-prediction implementations are **under numerical verification** and are not yet operational in this public release. Commands to reproduce the manuscript's tables and figures will be documented here after validation.
-
 ## Citation
 The manuscript citation and tagged software version will be added upon publication.
