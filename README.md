@@ -2,9 +2,9 @@
 
 Research code for predicting the mannuronic acid (M) fraction of alginate oligosaccharide (AOS) mixtures from higher-energy collisional dissociation tandem mass spectrometry (HCD-MS/MS), using NMR-calibrated composition references.
 
-The study covers **DP3–DP7** at normalized collision energies (**NCE**) of **18, 22, and 26**. Each model combines two nonnegative matrix factorization (NMF, *K* = 2) coefficients and eight fragment-ion intensity ratios (*K* = 8) with Ridge regression.
+The study covers **DP3–DP7** at normalized collision energies (**NCE**) of **18, 22, and 26**. Each model combines two nonnegative matrix factorization coefficients and eight fragment-ion intensity ratios with Ridge regression.
 
-**Publication status:** This repository is being prepared for the accompanying manuscript. The complete numerical reproduction pipeline is not yet available on the public branch.
+
 
 ## Requirements and Installation
 
