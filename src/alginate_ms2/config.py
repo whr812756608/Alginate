@@ -1,4 +1,3 @@
-"""Stage 1 model constants and file conventions."""
 from __future__ import annotations
 import json
 from pathlib import Path

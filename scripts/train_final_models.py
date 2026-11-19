@@ -4,7 +4,6 @@ import sys
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT / 'src') not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT / 'src'))
-"""Fit and serialize all 15 SI-fixed-ratio learned-NMF models on all 7 calibration compositions."""
 import argparse, csv
 from alginate_ms2.publication_pipeline import load_calibration,select_k8,fit_pipeline,save_pipeline
 from alginate_ms2.publication_math import NCES

@@ -1,4 +1,3 @@
-"""Composition-grouped LOO fold definitions."""
 import numpy as np
 
 NOMINAL = (0, 20, 40, 50, 60, 80, 100)

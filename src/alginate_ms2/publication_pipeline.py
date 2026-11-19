@@ -1,8 +1,3 @@
-"""Fit, validate, and serialize DP3–DP7 learned-NMF + K8 + Ridge models.
-
-K8 identities are fixed per DP across all folds and NCEs. NMF fitting,
-feature scaling, and Ridge training exclude held-out compositions.
-"""
 from __future__ import annotations
 import hashlib
 import json
@@ -51,7 +46,6 @@ def configuration_sha256():
 
 
 def load_calibration(input_dir, dp):
-    """Read three Stage-1 outputs for one shared SI-fixed K8 definition."""
     arrays={}
     for nce in NCES:
         name=f'dp{int(dp)}_nce{nce}_calibration.npz'
@@ -65,17 +59,12 @@ def load_calibration(input_dir, dp):
 
 
 def select_k8(arrays, dp, held=None):
-    """Resolve fixed K8 identities and the DP-specific NMF input peaks.
-
-    The K8 identities never depend on observations. For DP5 and DP7, NMF
-    candidate peaks are found using only the permitted training compositions.
-    """
     if held is not None and int(held) not in COMPOSITIONS:
         raise ValueError('Invalid held-out composition')
     dp=int(dp)
     fixed=tuple(publication_model(dp)['fixed_ratios'])
     if dp<=4:
-        return None  # Ion-center signals use fixed model settings.
+        return None
     if set(arrays) != set(NCES):
         raise ValueError('Expected three NCE Stage 1 inputs')
     grid=np.asarray(arrays[18]['grid_mz'],float)
@@ -104,7 +93,6 @@ class FittedPipeline:
     config_hash: str
 
     def predict(self, data):
-        """Inference uses saved NMF/K8/scaler/Ridge; NO fitting on new data."""
         if int(data['dp'])!=self.dp or int(data['nce'])!=self.nce:
             raise ValueError('External DP/NCE differs from fitted model')
         N,D,names=ratio_signals(data,self.dp,{'selection':self.selection})
@@ -120,7 +108,6 @@ class FittedPipeline:
 
 
 def fit_pipeline(data, dp, nce, selection, held=None):
-    """Fit one model on six LOO training groups or all seven final groups."""
     cfg=publication_model(dp)
     if int(data['dp'])!=dp or int(data['nce'])!=nce:
         raise ValueError('Stage-1 data mismatch')
@@ -181,7 +168,6 @@ def fit_pipeline(data, dp, nce, selection, held=None):
 
 
 def evaluate_fold(arrays, dp, held):
-    """Three NCE predictions using ONE SI-fixed K8 and six training groups."""
     selection=select_k8(arrays,dp,held)
     out=[]
     for nce in NCES:
@@ -190,7 +176,6 @@ def evaluate_fold(arrays, dp, held):
         y=np.asarray(meta['nmr_m_pct'],float)
         nom=np.asarray(meta['nominal_m_pct'],int)
         te=np.asarray(meta['heldout_mask'],bool)
-        # Reuse fitted NMF coefficients for consistent fold predictions.
         Z=model.scaler.transform(meta['features'])
         Z[:,:2] *= model.gamma
         raw=model.ridge.predict(Z)*100.
@@ -211,7 +196,6 @@ def evaluate_fold(arrays, dp, held):
 
 
 def save_pipeline(model,path):
-    """Plain NumPy arrays only; no pickle or executable model blob."""
     p=Path(path);p.parent.mkdir(parents=True,exist_ok=True)
     fit=model.nmf
     contents={

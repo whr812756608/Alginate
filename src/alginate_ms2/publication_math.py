@@ -1,8 +1,3 @@
-"""Numerical primitives for the predefined DP3–DP7 NMF + K8 + Ridge models.
-
-The eight fragment-ion ratios per DP are defined in configs/models.json.
-NMF and regression parameters are fitted only on training compositions.
-"""
 from __future__ import annotations
 from pathlib import Path
 import hashlib
@@ -26,7 +21,6 @@ EPS = 1e-12
 DROP_MZ = (193.035, 351.057, 369.067)
 
 def centered_nmf_ion_indices(grid_mz, dp, precursor_mz):
-    """DP3/4 ion-center NMF input with three excluded fragment centers."""
     if dp not in (3, 4):
         raise ValueError("Centered-window NMF ion input applies to DP3/DP4")
     centers = CENTERS_ALL[CENTERS_ALL <= precursor_mz + .001]
@@ -43,7 +37,6 @@ def centered_nmf_ion_indices(grid_mz, dp, precursor_mz):
 
 
 def extract_fullrange_ions(matrix, bin_indices):
-    """Fragment-ion signal: sum each SI-fixed 0.5-Da center and ±1 neighbors."""
     X = np.asarray(matrix, float)
     i = np.asarray(bin_indices, int)
     if X.ndim != 2 or len(i) < 2 or i.min() < 0 or i.max() >= X.shape[1]:
@@ -53,7 +46,6 @@ def extract_fullrange_ions(matrix, bin_indices):
 
 @dataclass
 class Rank2Model:
-    """Frozen fit object: transform must not learn from evaluation scans."""
     method: str
     active_columns: np.ndarray
     input_scale: float
@@ -68,7 +60,6 @@ class Rank2Model:
             raise ValueError("NMF feature input has different number of columns")
         A = X[:, self.active_columns] / self.input_scale
         if self.method == "learned":
-            # Apply the fitted NMF basis without changing its solver settings.
             decoder = NMF(n_components=2, init='nndsvda', solver='cd',
                           max_iter=self.max_iter, tol=1e-4, random_state=42)
             decoder.components_ = self.components.copy()
@@ -81,12 +72,6 @@ class Rank2Model:
 
 def fit_rank2(inputs, train_mask, nominal_m_pct, nmr_m_pct, method,
               seed=42, max_iter=2500):
-    """Fit training-only learned rank-2 NMF.
-
-    Orient coefficients by their correlation with training-set M fraction.
-    Labels orient components but do not fit the NMF basis. All NMR fractions
-    are expressed in percentage points.
-    """
     X = np.asarray(inputs, float)
     train = np.asarray(train_mask, bool)
     nominal = np.asarray(nominal_m_pct, int)
@@ -123,12 +108,10 @@ def fit_rank2(inputs, train_mask, nominal_m_pct, nmr_m_pct, method,
     fit = Rank2Model(method=method, active_columns=active, input_scale=scale,
                      components=W[order], n_iter=nit, converged=converged,
                      max_iter=int(max_iter))
-    # Reuse coefficients from the fitted NMF to avoid numerical re-projection drift.
     return fit, np.asarray(H[:, order], float)
 
 
 
-# --- K8 ion ratios: predefined SI identities, never selected during LOO ---
 
 NCE = (18, 22, 26)
 GROUPS = (0, 20, 40, 50, 60, 80, 100)
@@ -137,7 +120,6 @@ RATIO_PATTERN = re.compile(r'^I_(\d+(?:\.\d+)?)/I_(\d+(?:\.\d+)?)$')
 
 @dataclass(frozen=True)
 class SelectedK8:
-    """Eight SI-fixed ion ratio definitions; never inferred from sample data."""
     ion_bins: np.ndarray
     ion_mz: np.ndarray
     pairs: np.ndarray
@@ -146,11 +128,6 @@ class SelectedK8:
 
 
 def fixed_k8_from_grid(grid_mz, dp, ratio_names):
-    """Map 8 named SI ratios to a precise, shared 0.5-Da grid.
-
-    Names, directions, and order come from configs/models.json. The current
-    fold, NMR labels, and spectral intensities are never consulted.
-    """
     if int(dp) not in (5, 6, 7):
         raise ValueError('Full-range SI fixed ratios apply to DP5–DP7')
     names=tuple(ratio_names)
@@ -169,7 +146,6 @@ def fixed_k8_from_grid(grid_mz, dp, ratio_names):
         a,b=map(float,match.groups())
         if a==b:raise ValueError('Cannot divide ion intensity by itself')
         pairs_mz.append((a,b));ion_masses.extend((a,b))
-    # Ratio ion positions are independent of the NMF input definition.
     centers=sorted(set(ion_masses))
     indices=np.asarray([int(np.argmin(np.abs(grid-mz))) for mz in centers],int)
     if len(set(indices.tolist()))!=len(centers) or np.max(np.abs(grid[indices]-centers))>0.005:
@@ -180,7 +156,6 @@ def fixed_k8_from_grid(grid_mz, dp, ratio_names):
 
 
 def grouped_scan_normalize(raw, mids, dp, *, scheme, lam=1.0, cap=6., min_area=1e-5):
-    """Per-scan capped group weighting with five-band or 176-Da partitions."""
     X = tic_normalize(raw)
     if not 0 <= lam <= 1:
         raise ValueError('lambda must be between 0 and 1')
@@ -209,16 +184,12 @@ def grouped_scan_normalize(raw, mids, dp, *, scheme, lam=1.0, cap=6., min_area=1
 
 
 def ratio_source_matrix(arrays, dp):
-    """Return the DP-specific physical K8 spectrum; ratios are defined separately."""
     if dp <= 4:
         return np.asarray(arrays['ratio_input_spectra'], float)
     if dp in (5,6):
-        # DP5/6 K8 inputs use the Stage 1 NMF spectral branch.
         return np.asarray(arrays['nmf_spectra'], float)
     if dp == 7:
-        # DP7 uses separate NMF (GLOBAL) and K8 (LADDER176) normalizations.
         cfg = selected_model(7)
-        # Keep K8 settings independent from the NMF input normalization.
         model = cfg['model']
         frozen_k8 = dict(ratio_sigma_da=float(model['ratio_sigma_da']),
                          ratio_group_scheme=str(model['ratio_normalization']).removesuffix('_SCAN'),
@@ -247,7 +218,6 @@ def composition_weights(group):
 
 
 def read_processed(path):
-    """Read preprocessed spectral arrays without permitting Python pickle loading."""
     with np.load(Path(path), allow_pickle=False) as z:
         out = {k: z[k] for k in z.files}
     required = {"nmf_spectra", "ratio_input_spectra", "grid_mz", "nominal_m_pct",
@@ -273,13 +243,8 @@ def read_processed(path):
 
 
 
-# --- Fixed K8 signals and learned-NMF inputs ---
 
 def centered_signals(spectra, grid_mz, dp):
-    """Extract DP3/4 numerator and denominator signals at fixed ion centers.
-
-    The denominator pseudocount is applied in the ratio transformation.
-    """
     if dp not in (3,4):
         raise ValueError('Centered-window ratios apply to DP3/DP4')
     X = np.asarray(spectra,float)
@@ -302,7 +267,6 @@ def centered_signals(spectra, grid_mz, dp):
 
 
 def ratio_signals(item,dp,shared):
-    """Extract the same 8 numerator/denominator ion signals for every transform."""
     source=ratio_source_matrix(item,dp)
     if dp<=4:
         N,D,names=centered_signals(source,item['grid_mz'],dp)
@@ -337,11 +301,6 @@ def transform_ratios(N,D,dp,mode):
 
 
 def candidate_nmf_ion_pool(arrays, dp, held=None):
-    """Find NMF input peaks from calibration spectra at all three NCEs.
-
-    LOO selection uses only the six training compositions. Full-model fitting
-    uses all seven compositions. The eight ratio identities remain fixed.
-    """
     if int(dp) not in (5, 7):
         raise ValueError('Candidate ion-pool selection is configured for DP5 and DP7')
     if set(arrays) != set(NCES):
@@ -387,7 +346,6 @@ def candidate_nmf_ion_pool(arrays, dp, held=None):
 
 
 def selected_model_config():
-    """Read the single configuration defining calibration and model settings."""
     from .config import load_config
     return load_config()
 
@@ -399,7 +357,6 @@ def chosen_nmf_input(item, dp, selection):
     if selection is None:
         raise RuntimeError('Fixed K8 ion definitions are required')
     if dp==6:
-        # NMF and ion ratios use different Gaussian widths for DP6.
         raw=np.asarray(item['ratio_input_spectra'],float)
         recipe=selected_model(dp)['model']
         if str(recipe['nmf_normalization']) != 'EQ5_SCAN':

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Infer GG/MG/MM samples using saved DP3 and DP4 NCE26 final models."""
 from pathlib import Path
 import argparse
 import csv

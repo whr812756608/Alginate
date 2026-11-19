@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Stage 1: create DP/NCE-specific processed-spectra .npz files."""
 from __future__ import annotations
 import argparse
 from pathlib import Path

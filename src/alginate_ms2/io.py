@@ -1,9 +1,3 @@
-"""Calibration/external mzML input and precursor / NCE selection.
-
-Only MS2 scans matching the requested precursor isolation target and NCE
-are retained. Composition labels come from source filenames, never from
-individual scan intensities.
-"""
 from __future__ import annotations
 import numpy as np
 from pathlib import Path
@@ -40,10 +34,6 @@ def external_paths(data_dir, config=None):
 
 
 def read_matching_scans(data_dir, dp, nce, sample_set="calibration"):
-    """Return records holding raw peak arrays and source labels.
-
-    The raw mzML files are read directly for each requested DP/NCE.
-    """
     if sample_set not in ("calibration", "external"):
         raise ValueError("sample_set must be calibration or external")
     if sample_set == "external" and int(dp) not in (3, 4):

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Extract rank-2 NMF + eight fixed ion-ratio features for each DP and NCE."""
 from pathlib import Path
 import argparse
 import sys

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Run calibration preprocessing, feature generation, LOO, final fitting, and external inference."""
 from pathlib import Path
 import argparse
 import subprocess

@@ -1,10 +1,3 @@
-"""DP-specific HCD-MS/MS spectral preprocessing.
-
-DP3/4: cubic interpolation, local peak support, Gaussian convolution,
-       ion-center windows, and TIC/group-area normalization.
-DP5–7: 0.5-Da full-range bins, Gaussian smoothing, and capped
-       per-scan group normalization or global TIC normalization.
-"""
 from __future__ import annotations
 import numpy as np
 from scipy.interpolate import CubicSpline
@@ -44,7 +37,6 @@ def centered_group_bounds(group):
 
 
 def centered_normalize(masked, mz, group, lam):
-    """TIC/window-area weighting; the implemented blend is not a simple convex mixture."""
     if not 0 <= lam <= 1:
         raise ValueError("lambda must be in [0, 1]")
     T = tic_normalize(masked)
@@ -82,7 +74,6 @@ def centered_grid_mask(dp):
 
 
 def centered_process_scan(mz, intensity, dp, sigmas, grid_mask=None):
-    """Interpolate and smooth DP3/4 scans, rejecting invalid or empty inputs."""
     model = selected_model(dp)
     mz = np.asarray(mz, np.float32)
     intensity = np.asarray(intensity, np.float32)
@@ -137,7 +128,6 @@ def fullrange_edges(dp, width=.5):
 
 
 def fullrange_process_scan(mz, intensity, dp, width=.5):
-    """Bin intensities in 0.5-Da intervals and normalize by total intensity."""
     edges = fullrange_edges(dp, width)
     mz = np.asarray(mz, float)
     intensity = np.asarray(intensity, float)
@@ -160,7 +150,6 @@ def fullrange_smooth(X, sigma_da, width=.5):
 
 
 def fullrange_normalize(X, mids, dp, mode, lam, cap=6., min_area=1e-5):
-    """Apply global TIC or capped five-band per-scan normalization."""
     if mode == "GLOBAL":
         return tic_normalize(X)
     if mode != "EQ5_SCAN":
@@ -181,10 +170,6 @@ def fullrange_normalize(X, mids, dp, mode, lam, cap=6., min_area=1e-5):
 
 
 def preprocess_records(records, dp, nce, sample_set="calibration"):
-    """Process preselected scan records into matrix arrays with metadata.
-
-    This stage prepares spectra without fitting a decomposition or regression.
-    """
     c = load_config()
     model = selected_model(dp, c)
     if not records:
@@ -224,7 +209,7 @@ def preprocess_records(records, dp, nce, sample_set="calibration"):
             filenames.append(record["filename"])
         if not labels:
             raise ValueError("All scans were rejected by full-range preprocessing")
-        X_ratio = np.stack(raw).astype(np.float64)  # upstream TIC bins; exact K8 extraction comes later
+        X_ratio = np.stack(raw).astype(np.float64)
         X_nmf = fullrange_normalize(fullrange_smooth(X_ratio, float(model["nmf_sigma_da"]), width),
                                     mz_grid, dp, model["nmf_normalization"], float(model["nmf_lambda"]))
     labels = np.asarray(labels)
