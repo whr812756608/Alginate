@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" role="img" aria-labelledby="workflow-title workflow-desc">
+<title id="workflow-title">Alginate HCD-MS/MS publication workflow</title>
+<desc id="workflow-desc">Experimental mzML files for DP3–DP7 and NCE18, 22, 26 are preprocessed into 15 calibration datasets. Two learned NMF coefficients and eight fixed ion ratios are extracted. The model is evaluated with 105 LOO predictions and 15 final models are trained. External inference is performed on GG, MG and MM samples.</desc>
+<rect width="1536" height="1024" fill="#fff"/>
+<g font-family="Arial, Helvetica, sans-serif" text-anchor="middle" fill="#111">
+  <text x="768" y="64" font-size="48" font-weight="700">Load experimental mzML files</text>
+  <text x="768" y="109" font-size="30" fill="#707070">DP3–DP7 · NCE18/22/26</text>
+  <text x="768" y="237" font-size="44" font-weight="700">Stage 1 — Preprocessing</text>
+  <text x="768" y="284" font-size="29" fill="#707070">15 calibration spectral datasets</text>
+  <text x="768" y="412" font-size="43" font-weight="700">Stage 2 — Feature extraction</text>
+  <text x="768" y="459" font-size="29" fill="#707070">2 learned NMF coefficients + 8 fixed ratios</text>
+  <rect x="43" y="565" width="712" height="155" rx="23" fill="none" stroke="#C9CBD0" stroke-width="3"/>
+  <rect x="781" y="565" width="712" height="155" rx="23" fill="none" stroke="#C9CBD0" stroke-width="3"/>
+  <text x="399" y="632" font-size="43" font-weight="700">LOO validation</text>
+  <text x="399" y="677" font-size="30" fill="#707070">105 fold predictions</text>
+  <text x="1137" y="632" font-size="43" font-weight="700">Final training</text>
+  <text x="1137" y="677" font-size="30" fill="#707070">15 saved models</text>
+  <rect x="39" y="790" width="1458" height="194" rx="23" fill="none" stroke="#C9CBD0" stroke-width="3"/>
+  <text x="768" y="868" font-size="46" font-weight="700">External inference</text>
+  <text x="768" y="926" font-size="36" font-weight="600">GG · MG · MM</text>
+</g>
+<g stroke="#888" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+  <path d="M768 143v27m-9-9 9 9 9-9"/>
+  <path d="M768 313v29m-9-9 9 9 9-9"/>
+  <path d="M768 488v33m-9-9 9 9 9-9"/>
+  <path d="M768 742v31m-9-9 9 9 9-9"/>
+</g>
+</svg>
