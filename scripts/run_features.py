@@ -19,7 +19,6 @@ def main(argv=None):
                    help="Optional LOO composition; without this use all seven calibration groups")
     p.add_argument("--dp", nargs="+", default=["all"])
     p.add_argument("--nce", nargs="+", default=["all"])
-    p.add_argument("--synthetic", action="store_true", help="Use synthetic software-test input")
     a = p.parse_args(argv)
     dps = range(3, 8) if a.dp == ["all"] else [int(x) for x in a.dp]
     nces = NCES if a.nce == ["all"] else tuple(int(x) for x in a.nce)
@@ -29,7 +28,7 @@ def main(argv=None):
         p.error("Invalid held-out composition")
     a.out_dir.mkdir(parents=True, exist_ok=True)
     for dp in dps:
-        calibration = load_calibration(a.input_dir, dp, allow_synthetic=a.synthetic)
+        calibration = load_calibration(a.input_dir, dp)
         selection = select_k8(calibration, dp, held=a.held_out)
         for nce in nces:
             model, features = fit_pipeline(calibration[nce], dp, nce, selection, held=a.held_out)

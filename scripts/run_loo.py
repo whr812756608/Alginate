@@ -16,7 +16,6 @@ def main(argv=None):
     ap.add_argument('--out-dir',type=Path,default=Path('outputs/loo'))
     ap.add_argument('--dp',nargs='+',default=['all'])
     ap.add_argument('--heldout',nargs='+',default=['all'])
-    ap.add_argument('--synthetic',action='store_true')
     ap.add_argument('--allow-nonconverged',action='store_true')
     a=ap.parse_args(argv)
     dps=range(3,8) if a.dp==['all'] else [int(v) for v in a.dp]
@@ -24,7 +23,7 @@ def main(argv=None):
     if any(dp not in range(3,8) for dp in dps) or any(h not in COMPOSITIONS for h in helds):ap.error('Invalid DP or heldout')
     rows=[]
     for dp in dps:
-        arrays=load_calibration(a.input_dir,dp,allow_synthetic=a.synthetic)
+        arrays=load_calibration(a.input_dir,dp)
         for held in helds:
             fold=evaluate_fold(arrays,dp,held)
             if len(fold)!=3:raise RuntimeError('Missing NCE condition')
@@ -42,7 +41,6 @@ def main(argv=None):
             z=[r for r in rows if r['dp']==dp and r['nce']==nce]
             if len(z)!=len(helds):raise RuntimeError('Incomplete LOO')
             summary.append(dict(dp=dp,nce=nce,n_folds=len(z),loo_mae_pp=float(np.mean([r['absolute_error_pp'] for r in z])),
-                k8_only_mae_pp=float(np.mean([r['matched_k8_error_pp'] for r in z])),
                 n_nonconverged=sum(not r['nmf_converged'] for r in z)))
     with (a.out_dir/'loo_by_dp_nce.csv').open('w',newline='') as f:
         w=csv.DictWriter(f,fieldnames=list(summary[0]));w.writeheader();w.writerows(summary)

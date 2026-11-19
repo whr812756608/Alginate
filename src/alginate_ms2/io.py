@@ -42,8 +42,7 @@ def external_paths(data_dir, config=None):
 def read_matching_scans(data_dir, dp, nce, sample_set="calibration"):
     """Return records holding raw peak arrays and source labels.
 
-    pyteomics is needed only for this path. This function intentionally does
-    not use a raw-data cache yet so reruns cannot silently use stale spectra.
+    The raw mzML files are read directly for each requested DP/NCE.
     """
     if sample_set not in ("calibration", "external"):
         raise ValueError("sample_set must be calibration or external")
@@ -74,26 +73,4 @@ def read_matching_scans(data_dir, dp, nce, sample_set="calibration"):
                                 "label": label, "filename": path.name})
                 n_match += 1
         print(f"{path.name}: {n_match} precursor/NCE-matched MS2 scans")
-    return records
-
-
-def synthetic_records(dp, nce, sample_set="calibration", scans_per_sample=2, seed=7):
-    """Small *software-test* fixture; explicitly NOT experimental results."""
-    rng = np.random.default_rng(seed + 100 * int(dp) + int(nce))
-    c = load_config()
-    if sample_set == "external":
-        if int(dp) not in (3, 4):
-            raise ValueError("External experiments are limited to DP3 and DP4")
-        samples = [(name, name) for name in ("GG", "MG", "MM")]
-    else:
-        samples = [(m, f"Raw_F{dp}_M{m}G{100-m}.mzML") for m in c["nominal_m_pct"]]
-    records = []
-    precursor = selected_model(dp, c)["precursor_mz"]
-    centers = np.linspace(115, precursor - 12, 16)
-    for label, filename in samples:
-        for scan_idx in range(scans_per_sample):
-            masses = centers + rng.normal(0, .04, len(centers))
-            intensities = rng.lognormal(4.5, .25, len(centers))
-            records.append({"mz": masses, "intensity": intensities,
-                            "label": label, "filename": filename})
     return records

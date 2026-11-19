@@ -50,18 +50,16 @@ def configuration_sha256():
     return hashlib.sha256(CONFIG_PATH.read_bytes()).hexdigest()
 
 
-def load_calibration(input_dir, dp, *, allow_synthetic=False):
+def load_calibration(input_dir, dp):
     """Read three Stage-1 outputs for one shared SI-fixed K8 definition."""
     arrays={}
     for nce in NCES:
-        name=f'dp{int(dp)}_nce{nce}_calibration'+('_MOCK' if allow_synthetic else '')+'.npz'
+        name=f'dp{int(dp)}_nce{nce}_calibration.npz'
         path=Path(input_dir)/name
         if not path.exists():raise FileNotFoundError(f'Missing Stage 1 file: {path}')
         data=read_processed(path)
         if int(data['dp'])!=int(dp) or int(data['nce'])!=nce:
             raise ValueError(f'Metadata mismatch {path}')
-        if bool(data['synthetic']) != bool(allow_synthetic):
-            raise ValueError(f'Synthetic/real flag mismatch {path}')
         arrays[nce]=data
     return arrays
 
@@ -169,7 +167,6 @@ def fit_pipeline(data, dp, nce, selection, held=None):
           nmf_input_scale=np.asarray(fit.input_scale),
           ratio_fingerprint=np.asarray(matrix_fingerprint(R)),
           model_config_sha256=np.asarray(proc.config_hash),
-          synthetic=np.asarray(bool(data['synthetic'])),
           sample_id=np.asarray(data.get('sample_id', nom.astype(str)),str),
           nmf_sigma_da=np.asarray(float(cfg['nmf_sigma_da'])),
           ratio_sigma_da=np.asarray(float(cfg['ratio_sigma_da'])),
@@ -198,27 +195,17 @@ def evaluate_fold(arrays, dp, held):
         Z[:,:2] *= model.gamma
         raw=model.ridge.predict(Z)*100.
         pred=np.clip(raw,0.,100.)
-        # Explicit fair K8-only uses SAME eight numerical features, scaler/weights
-        R=meta['ion_ratios'];tr=~te
-        w=composition_weights(nom[tr])
-        scl=StandardScaler().fit(R[tr],sample_weight=w)
-        ridge=Ridge(alpha=model.alpha).fit(scl.transform(R[tr]),y[tr]/100.,sample_weight=w)
-        k8raw=ridge.predict(scl.transform(R[te]))*100.
-        k8pred=np.clip(k8raw,0,100)
         truth=float(np.median(y[te]))
         result=dict(dp=dp,nce=nce,held_nominal_pct=int(held),
             ratio_transform=model.transform,truth_NMR_pct=truth,
             predicted_pct=float(np.mean(pred[te])),
             absolute_error_pp=float(abs(np.mean(pred[te])-truth)),
-            matched_k8_predicted_pct=float(np.mean(k8pred)),
-            matched_k8_error_pp=float(abs(np.mean(k8pred)-truth)),
             clipped_scans_pct=float(np.mean((raw[te]<0)|(raw[te]>100))*100),
             n_test_scans=int(te.sum()),
             ratio_names=';'.join(model.ratio_names),
             k8_digest=str(meta['ratio_fingerprint']),
             nmf_converged=bool(model.converged),nmf_iterations=int(model.nmf.n_iter),
-            model_config_sha256=model.config_hash,
-            synthetic=bool(item['synthetic']))
+            model_config_sha256=model.config_hash)
         out.append(result)
     return out
 

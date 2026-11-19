@@ -180,7 +180,7 @@ def fullrange_normalize(X, mids, dp, mode, lam, cap=6., min_area=1e-5):
     return (1-lam)*X + lam*Q
 
 
-def preprocess_records(records, dp, nce, sample_set="calibration", synthetic=False):
+def preprocess_records(records, dp, nce, sample_set="calibration"):
     """Process preselected scan records into matrix arrays with metadata.
 
     This stage prepares spectra without fitting a decomposition or regression.
@@ -246,5 +246,4 @@ def preprocess_records(records, dp, nce, sample_set="calibration", synthetic=Fal
             "sample_id": labels.astype(str),
             "source_file": np.asarray(filenames, str),
             "dp": np.asarray(int(dp)), "nce": np.asarray(int(nce)),
-            "synthetic": np.asarray(bool(synthetic)),
             "sample_set": np.asarray(sample_set)}

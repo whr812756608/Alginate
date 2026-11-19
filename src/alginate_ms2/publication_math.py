@@ -247,11 +247,11 @@ def composition_weights(group):
 
 
 def read_processed(path):
-    """Read a Stage 1/1B .npz without permitting Python pickle loading."""
+    """Read preprocessed spectral arrays without permitting Python pickle loading."""
     with np.load(Path(path), allow_pickle=False) as z:
         out = {k: z[k] for k in z.files}
     required = {"nmf_spectra", "ratio_input_spectra", "grid_mz", "nominal_m_pct",
-                "nmr_m_pct", "dp", "nce", "sample_set", "synthetic"}
+                "nmr_m_pct", "dp", "nce", "sample_set"}
     missing = sorted(required - set(out))
     if missing:
         raise ValueError(f"{path}: missing Stage 1 arrays {missing}")

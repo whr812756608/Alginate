@@ -13,12 +13,11 @@ def main(argv=None):
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--input-dir',type=Path,default=Path('outputs/preprocessed'))
     ap.add_argument('--out-dir',type=Path,default=Path('outputs/models'))
-    ap.add_argument('--synthetic',action='store_true')
     ap.add_argument('--allow-nonconverged',action='store_true')
     a=ap.parse_args(argv);a.out_dir.mkdir(parents=True,exist_ok=True)
     rows=[]
     for dp in range(3,8):
-        arrays=load_calibration(a.input_dir,dp,allow_synthetic=a.synthetic)
+        arrays=load_calibration(a.input_dir,dp)
         sel=select_k8(arrays,dp,held=None)
         for nce in NCES:
             fit,metadata=fit_pipeline(arrays[nce],dp,nce,sel,held=None)
