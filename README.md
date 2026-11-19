@@ -7,9 +7,6 @@ Python implementation for MS-ML method estimating the NMR-calibrated mannuronic 
 
 ![Alginate MS/MS workflow: mzML loading, preprocessing, NMF and ion-ratio features, LOO validation, final training, and external inference](assets/workflow.svg)
 
-The workflow covers **15 calibration datasets**, **105 composition-held-out LOO predictions**, **15 final models**, and external GG-, MG-, and MM-rich sample inference using **DP3/DP4 NCE26 models only**.
-
-> **Code-release status:** The complete publication pipeline is undergoing local experimental-data verification and has not yet been merged into this repository's `main` branch. The commands below describe that pipeline and will become runnable here when the verified source is published.
 
 ## Installation
 
