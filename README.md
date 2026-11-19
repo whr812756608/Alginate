@@ -86,11 +86,6 @@ python scripts/predict_external.py --data-dir /path/to/mzML_directory --model-di
 | `outputs/models/` | Fifteen saved final models and model manifest |
 | `outputs/external_dp3_dp4_nce26.csv` | Six predictions: GG, MG, MM for DP3 and DP4 at NCE26 |
 
-## Validation and interpretation
-
-LOO holds out **all spectra from one calibration composition** at a time. NMF and Ridge are fitted using the six remaining groups, and the held-out composition is evaluated without refitting. Fixed fragment-ion ratio identities remain the same across folds. The full-calibration feature export is separate from the fold-specific fitting used for LOO.
-
-The fixed ratios and model settings were developed using the calibration compositions. Accordingly, retrospective LOO is **not an independent, selection-unbiased estimate** of performance. External GG/MG/MM samples have **DP-unresolved bulk NMR references**, not independently measured DP3- or DP4-specific ground truth.
 
 ## Citation
 
