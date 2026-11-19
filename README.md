@@ -1,10 +1,9 @@
 # Alginate HCD-MS/MS composition prediction
 
-Python implementation for estimating the NMR-calibrated mannuronic acid (M) fraction of alginate oligosaccharides (DP3–DP7) from HCD-MS/MS spectra. Each DP × normalized collision energy (NCE 18, 22, or 26) model combines **two learned nonnegative matrix factorization (NMF) coefficients**, **eight fixed fragment-ion intensity ratios**, and **Ridge regression**.
+Python implementation for MS-ML method estimating the NMR-calibrated mannuronic acid (M) fraction of alginate oligosaccharides (DP3–DP7) from HCD-MS/MS spectra. Each DP × normalized collision energy (NCE 18, 22, or 26) model combines **two learned nonnegative matrix factorization (NMF) coefficients**, **eight fragment-ion intensity ratios**, and **Ridge regression**.
 
-The DP-specific preprocessing parameters, the eight fixed ratio identities, and the model settings are defined in [`configs/models.json`](configs/models.json). Ratio identities are shared across the three NCE settings within each DP; DP3, DP5, and DP7 use `log1p`-transformed ratios, while DP4 and DP6 use raw ratios.
 
-## Workflow
+## Pipeline Workflow
 
 ![Alginate MS/MS workflow: mzML loading, preprocessing, NMF and ion-ratio features, LOO validation, final training, and external inference](assets/workflow.svg)
 
