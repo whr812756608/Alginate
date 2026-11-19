@@ -1,12 +1,7 @@
-"""Stage 2 — combine NMF K2 and ion-ratio K8 features.
-
-Publication implementation awaiting a verified numerical port from the
-selected research source. No approximate replacement is used here.
-"""
-from __future__ import annotations
-
-def require_verified_implementation() -> None:
-    raise NotImplementedError(
-        "Feature extraction scientific implementation has not passed manuscript parity verification. "
-        "Do not substitute general-purpose algorithms for the selected DP-specific recipe."
-    )
+"""Public Stage 2 API — learned rank-2 NMF and matched K8 features."""
+from .publication_pipeline import (fit_pipeline, evaluate_fold, load_calibration,
+    load_publication_config, publication_model, select_k8,
+    save_pipeline, load_pipeline, FittedPipeline)
+__all__ = ["fit_pipeline", "evaluate_fold", "load_calibration",
+           "load_publication_config", "publication_model", "select_k8",
+           "save_pipeline", "load_pipeline", "FittedPipeline"]
