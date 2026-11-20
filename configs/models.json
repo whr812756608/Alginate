@@ -1,0 +1,279 @@
+{
+  "study": "Alginate HCD-MS2 NMR-calibrated M-fraction",
+  "nce": [
+    18,
+    22,
+    26
+  ],
+  "nominal_m_pct": [
+    0,
+    20,
+    40,
+    50,
+    60,
+    80,
+    100
+  ],
+  "external_names": {
+    "GG": "AlgG_LowDPMix_1_051625.mzML",
+    "MG": "AlgMG_LowDPMix_1_051625.mzML",
+    "MM": "AlgM_LowDPMix_1_051625.mzML"
+  },
+  "models": {
+    "3": {
+      "precursor_mz": 545.099609375,
+      "nmr_m_fraction": [
+        0.08,
+        0.234,
+        0.388,
+        0.465,
+        0.542,
+        0.696,
+        0.85
+      ],
+      "spectrum_layout": "centered_window",
+      "nmf_sigma_da": 1.5,
+      "nmf_normalization": "ORIGINAL7",
+      "nmf_lambda": 1.0,
+      "ratio_sigma_da": 1.0,
+      "ratio_normalization": "ORIGINAL7",
+      "ratio_lambda": 1.0,
+      "model": {
+        "nmf_method": "learned",
+        "nmf_sigma_da": 1.5,
+        "nmf_normalization": "ORIGINAL7",
+        "nmf_lambda": 1.0,
+        "ratio_sigma_da": 1.0,
+        "ratio_normalization": "ORIGINAL7",
+        "ratio_lambda": 1.0,
+        "ratio_transform": "log1p_raw",
+        "ratio_policy": "frozen",
+        "nmf_seed": 42,
+        "nmf_max_iter": 2500,
+        "nmf_gamma": 4.0,
+        "ridge_alpha": 0.03,
+        "fixed_ratios": [
+          "I_175.025/I_291.036",
+          "I_175.025/I_309.046",
+          "I_175.025/I_485.078",
+          "I_193.035/I_291.036",
+          "I_193.035/I_309.046",
+          "I_351.057/I_485.078",
+          "I_113.024/I_351.057",
+          "I_193.035/I_485.078"
+        ],
+        "nmf_input_mode": "centered_ions"
+      }
+    },
+    "4": {
+      "precursor_mz": 721.131591796875,
+      "nmr_m_fraction": [
+        0.07,
+        0.222,
+        0.374,
+        0.45,
+        0.526,
+        0.678,
+        0.83
+      ],
+      "spectrum_layout": "centered_window",
+      "nmf_sigma_da": 0.5,
+      "nmf_normalization": "GALL",
+      "nmf_lambda": 1.0,
+      "ratio_sigma_da": 1.0,
+      "ratio_normalization": "GALL",
+      "ratio_lambda": 0.45,
+      "model": {
+        "nmf_method": "learned",
+        "nmf_sigma_da": 0.5,
+        "nmf_normalization": "GALL",
+        "nmf_lambda": 1.0,
+        "ratio_sigma_da": 1.0,
+        "ratio_normalization": "GALL",
+        "ratio_lambda": 0.45,
+        "ratio_transform": "raw",
+        "ratio_policy": "frozen",
+        "nmf_seed": 42,
+        "nmf_max_iter": 5000,
+        "nmf_gamma": 1.0,
+        "ridge_alpha": 0.03,
+        "fixed_ratios": [
+          "I_131.035/I_369.067",
+          "I_175.025/I_351.057",
+          "I_175.025/I_545.1",
+          "I_291.036/I_545.1",
+          "I_351.057/I_545.1",
+          "I_351.057/I_369.067",
+          "I_291.036/I_369.067",
+          "I_113.024/I_175.025"
+        ],
+        "nmf_input_mode": "centered_ions"
+      }
+    },
+    "5": {
+      "precursor_mz": 897.1637,
+      "nmr_m_fraction": [
+        0.1,
+        0.256,
+        0.412,
+        0.49,
+        0.568,
+        0.724,
+        0.88
+      ],
+      "spectrum_layout": "full_range",
+      "bin_width_da": 0.5,
+      "nmf_sigma_da": 1.5,
+      "nmf_normalization": "EQ5_SCAN",
+      "nmf_lambda": 1.0,
+      "model": {
+        "nmf_method": "learned",
+        "nmf_sigma_da": 1.5,
+        "nmf_normalization": "EQ5_SCAN",
+        "nmf_lambda": 1.0,
+        "ratio_sigma_da": 1.5,
+        "ratio_normalization": "EQ5_SCAN",
+        "ratio_lambda": 1.0,
+        "ratio_transform": "log1p_raw",
+        "ratio_policy": "frozen",
+        "nmf_seed": 42,
+        "nmf_max_iter": 2500,
+        "nmf_gamma": 4.0,
+        "ridge_alpha": 1.0,
+        "fixed_ratios": [
+          "I_175.250/I_193.250",
+          "I_351.250/I_527.250",
+          "I_351.250/I_545.250",
+          "I_351.250/I_703.250",
+          "I_351.250/I_837.250",
+          "I_527.250/I_703.250",
+          "I_527.250/I_837.250",
+          "I_545.250/I_837.250"
+        ],
+        "nmf_input_mode": "training_peak_pool"
+      }
+    },
+    "6": {
+      "precursor_mz": 1073.1958,
+      "nmr_m_fraction": [
+        0.1,
+        0.254,
+        0.408,
+        0.485,
+        0.562,
+        0.716,
+        0.87
+      ],
+      "spectrum_layout": "full_range",
+      "bin_width_da": 0.5,
+      "nmf_sigma_da": 0.0,
+      "nmf_normalization": "EQ5_SCAN",
+      "nmf_lambda": 0.5,
+      "model": {
+        "nmf_method": "learned",
+        "nmf_sigma_da": 1.5,
+        "nmf_normalization": "EQ5_SCAN",
+        "nmf_lambda": 0.5,
+        "ratio_sigma_da": 0.0,
+        "ratio_normalization": "EQ5_SCAN",
+        "ratio_lambda": 0.5,
+        "ratio_transform": "raw",
+        "ratio_policy": "frozen",
+        "nmf_seed": 42,
+        "nmf_max_iter": 2500,
+        "nmf_gamma": 4.0,
+        "ridge_alpha": 1.0,
+        "fixed_ratios": [
+          "I_131.250/I_369.250",
+          "I_193.250/I_351.250",
+          "I_193.250/I_1013.250",
+          "I_369.250/I_527.250",
+          "I_369.250/I_545.250",
+          "I_369.250/I_879.250",
+          "I_721.250/I_1013.250",
+          "I_897.250/I_1055.250"
+        ],
+        "nmf_input_mode": "fixed_ratio_ions"
+      }
+    },
+    "7": {
+      "precursor_mz": 1249.2279,
+      "nmr_m_fraction": [
+        0.04,
+        0.2086,
+        0.3694,
+        0.447,
+        0.5229,
+        0.6696,
+        0.81
+      ],
+      "spectrum_layout": "full_range",
+      "bin_width_da": 0.5,
+      "nmf_sigma_da": 0.0,
+      "nmf_normalization": "GLOBAL",
+      "nmf_lambda": 0.0,
+      "model": {
+        "nmf_method": "learned",
+        "nmf_sigma_da": 0.0,
+        "nmf_normalization": "GLOBAL",
+        "nmf_lambda": 0.0,
+        "ratio_sigma_da": 0.0,
+        "ratio_normalization": "LADDER176_SCAN",
+        "ratio_lambda": 1.0,
+        "ratio_transform": "log1p_raw",
+        "ratio_policy": "frozen",
+        "nmf_seed": 42,
+        "nmf_max_iter": 2500,
+        "nmf_gamma": 0.25,
+        "ridge_alpha": 1.0,
+        "fixed_ratios": [
+          "I_175.250/I_369.250",
+          "I_351.250/I_369.250",
+          "I_175.250/I_897.250",
+          "I_351.250/I_897.250",
+          "I_351.250/I_527.250",
+          "I_545.250/I_721.250",
+          "I_351.250/I_721.250",
+          "I_175.250/I_545.250"
+        ],
+        "nmf_input_mode": "training_peak_pool"
+      }
+    }
+  },
+  "schema_version": 3,
+  "common_model": {
+    "rank": 2,
+    "features": 10,
+    "nmf_method": "learned",
+    "ridge": "weighted Ridge",
+    "k8_transforms": [
+      "raw",
+      "log1p_raw"
+    ],
+    "nce": [
+      18,
+      22,
+      26
+    ],
+    "nominal_m_pct": [
+      0,
+      20,
+      40,
+      50,
+      60,
+      80,
+      100
+    ],
+    "k8_identity_policy": "Eight fixed named fragment-ion ratios per DP; shared across all NCEs and LOO folds",
+    "nmf_input_policy": "DP-specific training-only candidate ion pool or predefined input centers"
+  },
+  "nmf_peak_pool": {
+    "max_ions_per_mass_band": 18,
+    "minimum_ion_support": 0.25,
+    "ion_detection_tic": 1e-06,
+    "peak_rank_seed": 20261119,
+    "peak_separation_da": 1.5,
+    "quality_smoothing_da": 0.5,
+    "upper_precursor_offset_da": 4.0
+  }
+}

@@ -1,0 +1,13 @@
+# Generated files and local environment
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.egg-info/
+build/
+dist/
+outputs/
+data/raw/
+*.mzML
+*.raw
+.DS_Store
