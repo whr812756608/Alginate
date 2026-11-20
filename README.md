@@ -45,13 +45,20 @@ AlgM_LowDPMix_1_051625.mzML
 
 ## Run the pipeline
 
-From the repository root, run the full calibration and external-inference workflow:
+Run the following commands from the repository root after completing the installation. Replace `/path/to/mzML_directory` with the directory containing your experimental mzML files.
+
+### Complete workflow from raw mzML files
 
 ```bash
-python scripts/run_pipeline.py --data-dir /path/to/mzML_directory
+python scripts/run_pipeline.py \
+  --data-dir /path/to/mzML_directory
 ```
 
-To reuse existing preprocessed calibration spectra:
+This command preprocesses all DP3–DP7 calibration spectra at NCE18, NCE22 and NCE26, generates features, performs composition-grouped leave-one-out (LOO) evaluation, trains 15 final models, and predicts the three external samples for DP3 and DP4 at NCE26. Results are written under `outputs/`.
+
+### Reuse preprocessed calibration spectra
+
+If all 15 preprocessed calibration files already exist under `outputs/preprocessed/`, skip preprocessing:
 
 ```bash
 python scripts/run_pipeline.py \
@@ -59,9 +66,30 @@ python scripts/run_pipeline.py \
   --reuse-preprocessed
 ```
 
-To run calibration evaluation and final-model training without external files, add `--skip-external`.
+To reuse preprocessed files stored elsewhere (for example, on a local cache drive), provide their directory explicitly:
 
-The same pipeline can be executed step by step:
+```bash
+python scripts/run_pipeline.py \
+  --data-dir /path/to/mzML_directory \
+  --reuse-preprocessed \
+  --preprocessed-dir /path/to/stage1_cache
+```
+
+The preprocessed directory must contain all 15 files named `dp{dp}_nce{nce}_calibration.npz` for DP3–DP7 and NCE18, NCE22 and NCE26. The `--preprocessed-dir` option is valid only with `--reuse-preprocessed`. The `--data-dir` directory is still used for external mzML inference.
+
+### Calibration-only workflow
+
+If external mzML files are unavailable, use `--skip-external` to run the calibration workflow through final-model training:
+
+```bash
+python scripts/run_pipeline.py \
+  --data-dir /path/to/mzML_directory \
+  --skip-external
+```
+
+You can combine `--skip-external` with `--reuse-preprocessed` and `--preprocessed-dir`. To place generated results outside the repository, add `--output-dir /path/to/output_directory`.
+
+### Run each stage separately
 
 ```bash
 python scripts/run_preprocessing.py --data-dir /path/to/mzML_directory --dp all --nce all --out-dir outputs/preprocessed
@@ -70,6 +98,8 @@ python scripts/run_loo.py --input-dir outputs/preprocessed --out-dir outputs/loo
 python scripts/train_final_models.py --input-dir outputs/preprocessed --out-dir outputs/models
 python scripts/predict_external.py --data-dir /path/to/mzML_directory --model-dir outputs/models --out-csv outputs/external_dp3_dp4_nce26.csv
 ```
+
+When using an external preprocessed directory, use the same directory with `--input-dir` for feature extraction, LOO evaluation, and final-model training.
 
 ## Outputs
 
